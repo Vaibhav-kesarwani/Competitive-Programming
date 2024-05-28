@@ -17,11 +17,8 @@ int lcm(int a, int b){return (a/gcd(a,b)*b);}
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     string s; cin >> s;
     
-    if ((int)s.size() < 7) {
-        no
-        return;
-    }
-
+    if (s.find("0000000") < 100 || s.find("1111111") < 100) cout << "YES" nt
+    else cout << "NO" nt
     
 }
 
