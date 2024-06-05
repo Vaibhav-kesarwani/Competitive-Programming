@@ -15,7 +15,29 @@ int lcm(int a, int b){return (a/gcd(a,b)*b);}
 
 
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    
+    int n; cin >> n;
+    string s; cin >> s;
+
+    set<char> st;
+
+    for (int i = 0; i < n; i++) st.insert(s[i]);
+
+    vector<int> v;
+    for (auto &ch : st) {
+        v.push_back(ch);
+    }
+
+    map<char, char> mp;
+
+    for (int i = 0; i < v.size(); i++) {
+        mp[v[i]] = v[v.size() - i - 1];
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << mp[s[i]];
+    }
+
+    cout nt
 }
 
 signed main () {
