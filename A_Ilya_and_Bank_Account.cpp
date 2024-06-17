@@ -15,12 +15,23 @@ int lcm(int a, int b){return (a/gcd(a,b)*b);}
 
 
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    
+    int n;
+    cin >> n;
+    if (n >= 0)
+    {
+        cout << n nt
+    }
+    else
+    {
+        int a = n / 10;
+        int b = n / 100 * 10 + n % 10;
+        cout << max(a, b) nt
+    }
 }
 
 signed main () {
     Code By Vaibhav
-    int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
+    // int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
         Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai();
 
     return 0;
