@@ -20,22 +20,22 @@ int lcm(int a, int b) { return (a / gcd(a, b) * b); }
 
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai()
 {
-    int n, m, f[1000];
-    cin >> n >> m;
-    for (int i = 0; i < m; ++i)
+    int m, n, a, b;
+    cin >> m >> n;
+    a = m * n;
+    if (m > n)
     {
-        cin >> f[i];
+        b = a / m;
     }
-    sort(f, f + m);
-    int least = f[n - 1] - f[0];
-    for (int i = 1; i <= m - n; ++i)
+    else
+        b = a / n;
+
+    if (b % 2 == 0)
     {
-        if (f[i + n - 1] - f[i] < least)
-        {
-            least = f[i + n - 1] - f[i];
-        }
+        cout << "Malvika";
     }
-    cout << least nt
+    else
+        cout << "Akshat";
 }
 
 signed main()
