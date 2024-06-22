@@ -16,20 +16,21 @@ int lcm(int a, int b){return (a/gcd(a,b)*b);}
 
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     string s; cin >> s;
-    int chk = 0;
-    for (int i = 1; i < s.size(); i++) {
-        if (s[i] != s[0]) {
-            swap(s[i], s[0]);
-            chk = 1;
-            break;
+    map<char, int> mp;
+    for (auto it : s) mp[it]++;
+
+    if (mp.size() == 1) no
+    else {
+        yes
+        for (int i = 0; i < s.size() - 1; i++) {
+            if (s[i] != s[i + 1]) {
+                swap(s[i], s[i + 1]);
+                break;
+            }
         }
+
+        cout << s nt
     }
-
-    if (!chk) {no return;}
-
-    yes
-    cout << s nt
-
 }
 
 signed main () {
