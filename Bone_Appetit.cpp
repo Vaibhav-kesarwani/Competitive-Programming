@@ -17,8 +17,10 @@ int lcm(int a, int b){return (a/gcd(a,b)*b);}
 
 
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    int x; cin >> x;
-    ((x >= 6 && x <= 8) ? Yes : No) nt
+    int x, y; cin >> x >> y;
+    int a, b; cin >> a >> b;
+
+    cout << (x * a) + (y * b) nt
 }
 
 signed main () {
