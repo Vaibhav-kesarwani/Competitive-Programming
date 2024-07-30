@@ -17,7 +17,8 @@ int lcm(int a, int b){return (a/gcd(a,b)*b);}
 
 
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    
+    int x, y, z; cin >> x >> y >> z;
+    cout << x * y * z nt
 }
 
 signed main () {
