@@ -3,6 +3,7 @@
     "iostream": "cpp",
     "unordered_map": "cpp",
     "string": "cpp",
-    "string_view": "cpp"
+    "string_view": "cpp",
+    "numeric": "cpp"
   }
 }
