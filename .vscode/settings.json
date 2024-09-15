@@ -4,7 +4,8 @@
     "unordered_map": "cpp",
     "string": "cpp",
     "string_view": "cpp",
-    "numeric": "cpp"
+    "numeric": "cpp",
+    "*.tcc": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
