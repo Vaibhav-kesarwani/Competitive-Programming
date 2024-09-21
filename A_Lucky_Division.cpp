@@ -17,12 +17,34 @@ int lcm(int a, int b){return (a/gcd(a,b)*b);}
 
 
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    
+    int n; cin >> n;
+    bool flag = false;
+    for (int i = 1; i <= n; i++) {
+        string s = to_string(i);
+        int cnt = 0;
+        for (int j = 0; j < s.size(); j++) {
+            if (s[j] == '4' or s[j] == '7') {
+                cnt++;
+            }
+        }
+        if (cnt == s.size()) {
+            if (n % i == 0) {
+                flag = true;
+                break;
+            }
+        }
+    }
+    if (flag) {
+        yes;
+    } else {
+        no;
+    }
+    cout nt;
 }
 
 signed main () {
     Code By Vaibhav
-    int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
+    // int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
         Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai();
 
     return 0;
