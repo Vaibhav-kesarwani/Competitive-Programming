@@ -19,6 +19,7 @@ int lcm(int a, int b){return (a/gcd(a,b)*b);}
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     int x, y; cin >> x >> y;
     (((y * 2) <= x) ? cout << (x / (y * 2)) : cout << 0) nt
+    
 }
 
 signed main () {
