@@ -1,258 +1,96 @@
-
-#undef _GLIBCXX_DEBUG
-
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
+#define L(i, j, k) for(int i = (j); i <= (k); ++i)
+#define R(i, j, k) for(int i = (j); i >= (k); --i)
+#define ll long long 
+#define sz(a) ((int) (a).size())
+#define pb emplace_back
+#define me(a, x) memset(a, x, sizeof(a))
+#define vi vector<int>
+#define ull unsigned long long
+#define i128 __int128
 using namespace std;
-
-#ifdef LOCAL
-#include "algo/debug.h"
-#else
-#define debug(...) 42
-#endif
-
-template <typename T>
-T inverse(T a, T m) {
-  T u = 0, v = 1;
-  while (a != 0) {
-    T t = m / a;
-    m -= t * a; swap(a, m);
-    u -= t * v; swap(u, v);
-  }
-  assert(m == 1);
-  return u;
-}
-
-template <typename T>
-class Modular {
- public:
-  using Type = typename decay<decltype(T::value)>::type;
-
-  constexpr Modular() : value() {}
-  template <typename U>
-  Modular(const U& x) {
-    value = normalize(x);
-  }
-
-  template <typename U>
-  static Type normalize(const U& x) {
-    Type v;
-    if (-mod() <= x && x < mod()) v = static_cast<Type>(x);
-    else v = static_cast<Type>(x % mod());
-    if (v < 0) v += mod();
-    return v;
-  }
-
-  const Type& operator()() const { return value; }
-  template <typename U>
-  explicit operator U() const { return static_cast<U>(value); }
-  constexpr static Type mod() { return T::value; }
-
-  Modular& operator+=(const Modular& other) { if ((value += other.value) >= mod()) value -= mod(); return *this; }
-  Modular& operator-=(const Modular& other) { if ((value -= other.value) < 0) value += mod(); return *this; }
-  template <typename U> Modular& operator+=(const U& other) { return *this += Modular(other); }
-  template <typename U> Modular& operator-=(const U& other) { return *this -= Modular(other); }
-  Modular& operator++() { return *this += 1; }
-  Modular& operator--() { return *this -= 1; }
-  Modular operator++(int) { Modular result(*this); *this += 1; return result; }
-  Modular operator--(int) { Modular result(*this); *this -= 1; return result; }
-  Modular operator-() const { return Modular(-value); }
-
-  template <typename U = T>
-  typename enable_if<is_same<typename Modular<U>::Type, int>::value, Modular>::type& operator*=(const Modular& rhs) {
-    value = normalize(static_cast<int64_t>(value) * static_cast<int64_t>(rhs.value));
-    return *this;
-  }
-  template <typename U = T>
-  typename enable_if<is_same<typename Modular<U>::Type, int64_t>::value, Modular>::type& operator*=(const Modular& rhs) {
-    int64_t q = int64_t(static_cast<long double>(value) * rhs.value / mod());
-    value = normalize(value * rhs.value - q * mod());
-    return *this;
-  }
-  template <typename U = T>
-  typename enable_if<!is_integral<typename Modular<U>::Type>::value, Modular>::type& operator*=(const Modular& rhs) {
-    value = normalize(value * rhs.value);
-    return *this;
-  }
-
-  Modular& operator/=(const Modular& other) { return *this *= Modular(inverse(other.value, mod())); }
-
-  friend const Type& abs(const Modular& x) { return x.value; }
-
-  template <typename U>
-  friend bool operator==(const Modular<U>& lhs, const Modular<U>& rhs);
-
-  template <typename U>
-  friend bool operator<(const Modular<U>& lhs, const Modular<U>& rhs);
-
-  template <typename V, typename U>
-  friend V& operator>>(V& stream, Modular<U>& number);
-
- private:
-  Type value;
+const int N = 1e6 + 7, mod = 998244353, inv2 = (mod + 1) / 2;
+struct mint {
+	int x;
+	inline mint(int o = 0) { x = o; }
+	inline mint & operator = (int o) { return x = o, *this; }
+	inline mint & operator += (mint o) { return (x += o.x) >= mod && (x -= mod), *this; }
+	inline mint & operator -= (mint o) { return (x -= o.x) < 0 && (x += mod), *this; }
+	inline mint & operator *= (mint o) { return x = (ll) x * o.x % mod, *this; }
+	inline mint & operator ^= (int b) {
+		mint w = *this;
+		mint ret(1);
+		for(; b; b >>= 1, w *= w) if(b & 1) ret *= w;
+		return x = ret.x, *this;
+	}
+	inline mint & operator /= (mint o) { return *this *= (o ^= (mod - 2)); }
+	friend inline mint operator + (mint a, mint b) { return a += b; }
+	friend inline mint operator - (mint a, mint b) { return a -= b; }
+	friend inline mint operator * (mint a, mint b) { return a *= b; }
+	friend inline mint operator / (mint a, mint b) { return a /= b; }
+	friend inline mint operator ^ (mint a, int b) { return a ^= b; }
 };
-
-template <typename T> bool operator==(const Modular<T>& lhs, const Modular<T>& rhs) { return lhs.value == rhs.value; }
-template <typename T, typename U> bool operator==(const Modular<T>& lhs, U rhs) { return lhs == Modular<T>(rhs); }
-template <typename T, typename U> bool operator==(U lhs, const Modular<T>& rhs) { return Modular<T>(lhs) == rhs; }
-
-template <typename T> bool operator!=(const Modular<T>& lhs, const Modular<T>& rhs) { return !(lhs == rhs); }
-template <typename T, typename U> bool operator!=(const Modular<T>& lhs, U rhs) { return !(lhs == rhs); }
-template <typename T, typename U> bool operator!=(U lhs, const Modular<T>& rhs) { return !(lhs == rhs); }
-
-template <typename T> bool operator<(const Modular<T>& lhs, const Modular<T>& rhs) { return lhs.value < rhs.value; }
-
-template <typename T> Modular<T> operator+(const Modular<T>& lhs, const Modular<T>& rhs) { return Modular<T>(lhs) += rhs; }
-template <typename T, typename U> Modular<T> operator+(const Modular<T>& lhs, U rhs) { return Modular<T>(lhs) += rhs; }
-template <typename T, typename U> Modular<T> operator+(U lhs, const Modular<T>& rhs) { return Modular<T>(lhs) += rhs; }
-
-template <typename T> Modular<T> operator-(const Modular<T>& lhs, const Modular<T>& rhs) { return Modular<T>(lhs) -= rhs; }
-template <typename T, typename U> Modular<T> operator-(const Modular<T>& lhs, U rhs) { return Modular<T>(lhs) -= rhs; }
-template <typename T, typename U> Modular<T> operator-(U lhs, const Modular<T>& rhs) { return Modular<T>(lhs) -= rhs; }
-
-template <typename T> Modular<T> operator*(const Modular<T>& lhs, const Modular<T>& rhs) { return Modular<T>(lhs) *= rhs; }
-template <typename T, typename U> Modular<T> operator*(const Modular<T>& lhs, U rhs) { return Modular<T>(lhs) *= rhs; }
-template <typename T, typename U> Modular<T> operator*(U lhs, const Modular<T>& rhs) { return Modular<T>(lhs) *= rhs; }
-
-template <typename T> Modular<T> operator/(const Modular<T>& lhs, const Modular<T>& rhs) { return Modular<T>(lhs) /= rhs; }
-template <typename T, typename U> Modular<T> operator/(const Modular<T>& lhs, U rhs) { return Modular<T>(lhs) /= rhs; }
-template <typename T, typename U> Modular<T> operator/(U lhs, const Modular<T>& rhs) { return Modular<T>(lhs) /= rhs; }
-
-template<typename T, typename U>
-Modular<T> power(const Modular<T>& a, const U& b) {
-  assert(b >= 0);
-  Modular<T> x = a, res = 1;
-  U p = b;
-  while (p > 0) {
-    if (p & 1) res *= x;
-    x *= x;
-    p >>= 1;
-  }
-  return res;
+inline mint qpow(mint x, int y = mod - 2) { return x ^ y; }
+mint fac[N], ifac[N], inv[N];
+void init(int x) {
+	fac[0] = ifac[0] = inv[1] = 1;
+	L(i, 2, x) inv[i] = (mod - mod / i) * inv[mod % i];
+	L(i, 1, x) fac[i] = fac[i - 1] * i, ifac[i] = ifac[i - 1] * inv[i];
+} 
+mint C(int x, int y) {
+	return x < y || y < 0 ? 0 : fac[x] * ifac[y] * ifac[x - y];
 }
-
-template <typename T>
-bool IsZero(const Modular<T>& number) {
-  return number() == 0;
+inline mint sgn(int x) {
+	return (x & 1) ? mod - 1 : 1;
 }
+int n;
+mint dp[N]; 
+vi dv[N];
+mint mut[N];
+mint mu[N];
+void Main() {
+	cin >> n;
+	L(i, 1, n) dp[i] = mut[i] = 0;
+	mint ans = 0;
+	R(i, n, 1) {
+		// L(j, 1, n) if(__gcd(i, j) < j) {
+		// 	dp[__gcd(i, j)] += dp[j] * 2;
+		// 	ans += dp[j] * 2;
+		// }
+		for(int d : dv[i]) {
+			mint qwq = 0;
+			for(int nd : dv[i / d]) qwq += mu[nd] * mut[d * nd];
+			qwq -= dp[d];
+			// cout << i <<' '<<d<<"inc " << qwq.x << ' ' << mut[d].x << ' ' << mut[d * 2].x << endl;
 
-template <typename T>
-string to_string(const Modular<T>& number) {
-  return to_string(number());
+			qwq *= 2;
+			ans += qwq;
+			dp[d] += qwq;
+			for(auto s : dv[d]) {
+				mut[s] += qwq;
+			}
+		}
+		dp[i] += 1;
+		ans += 1;
+		for(auto j : dv[i]) mut[j] += 1;
+		// L(j, 1, n) cout << dp[j].x << ' ';
+		// cout << endl;
+	}
+	cout << ans.x << '\n';
 }
-
-// U == std::ostream? but done this way because of fastoutput
-template <typename U, typename T>
-U& operator<<(U& stream, const Modular<T>& number) {
-  return stream << number();
-}
-
-// U == std::istream? but done this way because of fastinput
-template <typename U, typename T>
-U& operator>>(U& stream, Modular<T>& number) {
-  typename common_type<typename Modular<T>::Type, int64_t>::type x;
-  stream >> x;
-  number.value = Modular<T>::normalize(x);
-  return stream;
-}
-
-// using ModType = int;
-
-// struct VarMod { static ModType value; };
-// ModType VarMod::value;
-// ModType& md = VarMod::value;
-// using Mint = Modular<VarMod>;
-
-constexpr int md = 998244353;
-using Mint = Modular<std::integral_constant<decay<decltype(md)>::type, md>>;
-
-// vector<Mint> fact(1, 1);
-// vector<Mint> inv_fact(1, 1);
-
-// Mint C(int n, int k) {
-//   if (k < 0 || k > n) {
-//     return 0;
-//   }
-//   while ((int) fact.size() < n + 1) {
-//     fact.push_back(fact.back() * (int) fact.size());
-//     inv_fact.push_back(1 / fact.back());
-//   }
-//   return fact[n] * inv_fact[k] * inv_fact[n - k];
-// }
-
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(nullptr);
-  const int N = int(1e5) + 10;
-  vector<vector<int>> divs(N);
-  for (int i = 1; i < N; i++) {
-    for (int j = i; j < N; j += i) {
-      divs[j].push_back(i);
-    }
-  }
-  vector<int> p(N);
-  iota(p.begin(), p.end(), 0);
-  for (int i = 2; i < N; i++) {
-    if (p[i] == i) {
-      for (int j = i + i; j < N; j += i) {
-        if (p[j] == j) {
-          p[j] = i;
-        }
-      }
-    }
-  }
-  vector<vector<int>> primes(N);
-  for (int i = 2; i < N; i++) {
-    int x = i;
-    while (x > 1) {
-      if (!primes[i].empty() && primes[i].back() == p[x]) {
-        // nothing
-      } else {
-        primes[i].push_back(p[x]);
-      }
-      x /= p[x];
-    }
-  }
-  vector<Mint> res(N);
-  vector<vector<Mint>> f(N);
-  for (int i = 1; i < N; i++) {
-    f[i].assign(N / i + 2, 1);
-  }
-  for (int d = 1; d < N; d++) {
-    vector<Mint> aux(N / d + 2);
-    for (int j = 1; j * d < N; j++) {
-      for (int k : divs[j]) {
-        if (k > 1) {
-          int sz = int(primes[k].size());
-          for (int t = 0; t < (1 << sz); t++) {
-            int sign = 1;
-            int u = 1;
-            for (int i = 0; i < sz; i++) {
-              if (t & (1 << i)) {
-                sign *= -1;
-                u *= primes[k][i];
-              }
-            }
-            f[k * d][j / k] += aux[u] * sign;
-          }
-        }
-      }
-      for (int u : divs[j]) {
-        aux[u] += 2 * f[d][j];
-      }
-    }
-  }
-  Mint sum = 0;
-  for (int i = 1; i < N; i++) {
-    sum += f[i][1];
-    res[i] = sum;
-  }
-  int tt;
-  cin >> tt;
-  while (tt--) {
-    int n;
-    cin >> n;
-    cout << res[n] << '\n';
-  }
-  return 0;
+	ios :: sync_with_stdio(false);
+	cin.tie(0); cout.tie(0);
+	int mx = 1e6;
+	L(i, 1, mx)
+		L(j, 1, mx / i)
+			dv[i * j].pb(i);
+	L(i, 1, mx)
+		mu[i] = (i == 1);
+	L(i, 1, mx)
+		L(j, 2, mx / i)
+			mu[i * j] -= mu[i];
+	// cout << "mu = " << mu[2].x << endl;
+	int t; cin >> t; while(t--) Main();
+	return 0;
 }
