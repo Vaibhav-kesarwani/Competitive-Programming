@@ -6,7 +6,8 @@
     "string_view": "cpp",
     "numeric": "cpp",
     "*.tcc": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "ios": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
