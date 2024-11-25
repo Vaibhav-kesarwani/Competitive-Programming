@@ -1,100 +1,81 @@
-#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 
-/***from dust i have come, dust i will be***/
+using  namespace std;
+using Long = long long;
+const Long maximo = 100000000000000ll;
 
-#include<algorithm>
-#include<cmath>
-#include<cstdio>
-#include<cstdlib>
-#include<cstring>
-#include<functional>
-#include<iomanip>
-#include<iostream>
-#include<map>
-#include<numeric>
-#include<queue>
-#include<set>
-#include<stack>
-#include<string>
-#include<utility>
-#include<vector>
+int main(){
+	
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
 
-typedef long long int ll;
-typedef unsigned long long int ull;
+	string cad;
+	Long money;
 
-#define dbg printf("in\n")
-#define nl printf("\n");
-#define N 610
-#define pp pair<int,int>
-#define inf 10000000
+	cin >> cad;
 
-using namespace std;
+	vector <Long> need(3);
+	vector <Long> have(3);
+	vector <Long> cost(3);
 
-int pb, pc, ps;
-int nb, nc, ns;
-int lb, lc, ls;
-ll fb, fc, fs;
-
-//i have nb,nc,ns brea,cheese and sausage
-//i need lb,lc,ls to make a single burger, assuming i would make x
-//the function returns the extra money needed
-ll price(ll x)
-{
-	fb = max(x*lb - nb, (ll)0);
-	fc = max(x*lc - nc, (ll)0);
-	fs = max(x*ls - ns, (ll)0);
-
-	ll p = fb*pb + fc*pc + fs*ps;
-	return p;
-}
-
-int main()
-{
-	freopen("in2.txt", "r", stdin);
-
-	int i, j, k;
-	int n, m;
-	ll r;
-	string s;
-
-	cin >> s;
-
-	n = s.length();
-	lb = lc = ls = 0;
-	for (i = 0; i < n; i++)
+	for (int i = 0; i < cad.size(); ++i)
 	{
-		if (s[i] == 'B')lb++;
-		else if (s[i] == 'C')lc++;
-		else ls++;
+		if(cad[i] == 'B')
+			need[0]++;
+
+		if(cad[i] == 'S')
+			need[1]++;
+
+		if(cad[i] == 'C')
+			need[2]++;
 	}
 
-	cin >> nb >> ns >> nc;
-	cin >> pb >> ps >> pc;
-	cin >> r;
+	for (int i = 0; i < 3; ++i)
+		cin >> have[i];
+	
+	for (int i = 0; i < 3; ++i)
+		cin >> cost[i];
 
-	//binary search
-	ll high, low, mid, z, ans = 0;
-	low = 0, high = r + 1000, mid = 0;
+	cin >> money;
+	
 
-	while (low <= high)
-	{
-		mid = (low + high) / 2;
+	Long minBurger = 0;
+	Long maxBurger = maximo;
+	Long middle;
+	Long din = 0ll;
+	Long ans = 0ll;
+	Long aux = 0;
 
-		z = price(mid);
-		if (z == r)
+	while(minBurger <= maxBurger){
+
+		din = 0ll;
+
+		middle = (minBurger + maxBurger) / 2ll;
+
+		for (int i = 0; i < 3; ++i)
 		{
-			cout << mid << endl;
-			return 0;
+			aux = need[i] * middle;
+			aux = have[i] - aux;
+
+			if(aux < 0)
+				din += abs(aux) * cost[i];
 		}
 
-		if (z > r)
-			high = mid - 1;
+		if(din <= money){
 
-		else
-			low = mid + 1, ans = mid;
+			ans = middle;
+			minBurger = middle + 1ll;
+
+		}
+		else{
+			maxBurger = middle - 1ll;
+		}
+
+
 	}
 
-	cout << ans << endl;
+	cout << ans;
 
 	return 0;
 }
