@@ -1,83 +1,52 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
+ 
 using namespace std;
+// using namespace __gnu_pbds;
+ 
+#define int long long
+#define mod 1000000007
+#define base 7001
+#define base2 757
+#define F first
+#define S second
+// #define pi acos(-1)
+#define double long double
+// #define ordered_set tree<int, null_type, less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// #define ordered_multiset tree<int, null_type, less_equal<int>, rb_tree_tag,tree_order_statistics_node_update>
+ 
+#pragma GCC optimize("O3,Ofast,unroll-loops")
+#pragma GCC target("avx2,sse3,sse4,avx")
 
-int a[9];
-string str;
-int getValue(vector <int> v){
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+ 
+constexpr int maxn = 1000001;
+const int N = 1 << (int)(ceil(log2(maxn)));
 
-    int s=0;
-    for(int j=0;j<v.size();j++){
-        s=s*10+v[j];
+int n, a[15];
+
+signed main()
+{
+    cin.tie(0) -> sync_with_stdio(0);
+    cin >> n;
+    int mn = INT_MAX, mni = 0;
+    for (int i = 1; i < 10; i++) {
+        cin >> a[i];
+        if (a[i] < mn) {mn = a[i]; mni = i;}
     }
-
-    return s;
-
-
-}
-
-string call(int i, int paint, string v){
-    if(paint==0)
-        return v;
-
-    string opt1=v, opt2=v;
-
-    if(i>0)
-        opt2= call(i-1, paint, v);
-
-    if(paint>=a[i]){
-        char c= '0' + (i+1);
-        v.push_back(c);
-        opt1= call(i, paint-a[i], v);
-    }
-
-
-    if(opt1.length()==opt2.length()){
-        int flag=0;
-        for(int i=0;i<opt1.length();i++){
-
-            int op1= opt1[i]-'0';
-            int op2= opt2[i]-'0';
-
-            if(op1>op2){
-                flag=1;
+    if (!(n / mn)) {cout << -1; return 0;}
+    vector<int> v;
+    for (int i = 1; i <= n / mn; i++) v.push_back(mni);
+    int rem = n / mn * mn;
+    for (int i = 0; i < v.size(); i++) {
+        for (int j = 9; j > 0; j--) {
+            if (rem - mn + a[j] <= n) {
+                v[i] = j;
+                rem -= mn; rem += a[j];
                 break;
             }
-            else if(op2>op1){
-                flag=2;
-                break;
-            }
-
         }
-
-        if(flag==1)
-            return opt1;
-        else
-            return opt2;
-
-
     }
-    if(opt1.length()<opt2.length())
-        return opt2;
-    else
-        return opt1;
-
-    //return opt1.length()>opt2.length() ? opt1: opt2;
-
-}
-
-main(){
-    int paint;
-    cin>>paint;
-
-    for(int i=0;i<9;i++){
-        cin>> a[i];
-        char c= (char) a[i];
-        str.push_back(c);
-    }
-
-    string s;
-
-    cout<< call(8,paint,s)<< endl;
-
-
+    for (int i : v) cout << i;
 }
