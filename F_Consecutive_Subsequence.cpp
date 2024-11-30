@@ -1,53 +1,45 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-const int N = 200 * 1000 + 11;
+int a[200005];
+map <int, int> dp;
 
-int n, m;
-int deg[N];
-bool used[N];
-vector<int> comp;
-vector<int> g[N];
+void solution(int endi, int pos){
+    if(pos<0)
+        return;
 
-void dfs(int v) {
-	used[v] = true;
-	comp.push_back(v);
-	
-	for (auto to : g[v])
-		if (!used[to])
-			dfs(to);
+    if(a[pos]==endi){
+        solution(endi-1,pos-1);
+        cout<<pos+1<<" ";
+    }
+
+    else
+        solution(endi, pos-1);
 }
 
-int main() {
-#ifdef _DEBUG
-	freopen("input.txt", "r", stdin);
-//	freopen("output.txt", "w", stdout);
-#endif
+main(){
+    int n, maxi=0,endi,endi_index;
+    cin>> n;
 
-	scanf("%d %d", &n, &m);
-	for (int i = 0; i < m; ++i) {
-		int x, y;
-		scanf("%d %d", &x, &y);
-		--x, --y;
-		g[x].push_back(y);
-		g[y].push_back(x);
-		++deg[x];
-		++deg[y];
-	}
-	
-	int ans = 0;
-	for (int i = 0; i < n; ++i) {
-		if (!used[i]) {
-			comp.clear();
-			dfs(i);
-			bool ok = true;
-			for (auto v : comp) ok &= deg[v] == 2;
-			if (ok) ++ans;
-		}
-	}
-	
-	printf("%d\n", ans);
-	
-	return 0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        dp[a[i]]=0;
+    }
+
+    for(int i=0; i<n; i++){
+        dp[a[i]]= dp[a[i]-1]+1;
+
+        if(dp[a[i]]>maxi){
+            endi_index=i;
+            endi= a[i];
+            maxi=dp[a[i]];
+        }
+
+    }
+
+    cout<<maxi<<endl;
+
+
+    solution(endi-1,endi_index-1);
+    cout<<endi_index+1<<endl;
 }
