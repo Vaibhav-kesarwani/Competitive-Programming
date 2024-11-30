@@ -1,37 +1,49 @@
 #include<bits/stdc++.h>
-#include<cstring>
 using namespace std;
-int main()
-{
 
-        int i,j,k,n,l;
-        int boro=0,choto=0;
-        int worst,best;
-        char pass[200];
+int pi[1000005];
+string p;
 
-        cin>>n>>k;
-        char s[n][200];
+int KMP(){
+    int now;
 
-        for(i=0;i<n;i++)
-        {
-            scanf("%s",&s[i]);
-        }
+    pi[0]= now= -1;
 
-        scanf("%s",&pass);
-        l=strlen(pass);
+    for(int i=1;i<p.length();i++){
 
-         for(i=0;i<n;i++)
-         {
-             if(strlen(s[i])<l)
-                choto++;
-             else if(strlen(s[i])>l)
-                boro++;
-         }
+        while(now!=-1 && p[i]!=p[now+1])
+            now= pi[now];
 
-         best=(choto*1)+((choto/k)*5)+1;
-         worst=(n-boro-1)+ (((n-boro-1)/k)*5) +1;
-//cout<<choto<<"  "<<boro<<endl;
-         cout<<best<<" "<<worst;
+        if(p[i]==p[now+1])
+            pi[i]= ++now;
+        else
+            pi[i]= -1;
 
-        return 0;
+
+    }
+
+}
+
+main(){
+    cin>> p;
+    KMP();
+    int len= p.length();
+
+    int maxi= pi[len-1];
+    int found= pi[maxi];
+    if(maxi==-1)
+        found=-1;
+
+    for(int i=1;i<(len-1);i++){
+        if(pi[i]==maxi)
+            found=maxi;
+    }
+
+    if(found==-1)
+        cout<<"Just a legend"<<endl;
+    else{
+        cout<< p.substr(0,found+1) <<endl;
+    }
+
+
 }
