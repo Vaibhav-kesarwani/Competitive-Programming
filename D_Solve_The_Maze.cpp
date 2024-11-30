@@ -1,86 +1,61 @@
-#include 
+#include<bits/stdc++.h>
+
 using namespace std;
-#define int long long
-typedef int ll;
-typedef long double ld;
-const ll N = 55;
-char en = '\n';
-ll inf = 1e16;
-ll mod = 1e9 + 7;
-ll power(ll x, ll n, ll mod) {
-  ll res = 1;
-  x %= mod;
-  while (n) {
-    if (n & 1)
-      res = (res * x) % mod;
-    x = (x * x) % mod;
-    n >>= 1;
-  }
-  return res;
+
+bool vis[501][501];
+int freecells=0;
+int vs=0;
+int k;
+char grid[501][501];
+int dx[] = {-1, 0, 0, 1};
+int dy[] = { 0,-1, 1, 0};
+
+void dfs(int x,int y,int n,int m)
+{
+    if(x>=0&&x<n&&y>=0&&y<m&&grid[x][y]!='#'&& !vis[x][y])
+    {
+        vis[x][y]=true;
+        if(k>0) k--;
+        else grid[x][y]='X';
+       for(int l=0;l<4;l++)
+       {
+           dfs(x+dx[l],y+dy[l],n,m);
+       }
+    }
 }
-ll n, m;
-char arr[N][N];
-ll dir[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-bool valid(ll i, ll j) { return i >= 1 && i <= n && j >= 1 && j <= m; }
-int32_t main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
+int main()
 
-  ll t;
-  cin >> t;
-  while (t--) {
-
-    cin >> n >> m;
-
-    for (ll i = 1; i <= n; i++) {
-      cin >> (arr[i] + 1);
-    }
-
-    for (ll i = 1; i <= n; i++) {
-      for (ll j = 1; j <= m; j++) {
-        if (arr[i][j] == 'B') {
-          for (ll k = 0; k < 4; k++) {
-            ll ni = i + dir[k][0];
-            ll nj = j + dir[k][1];
-            if (valid(ni, nj) && arr[ni][nj] == '.')
-              arr[ni][nj] = '#';
-          }
+{
+    int n,m;
+    cin>>n>>m>>k;
+    memset(vis,false,sizeof(vis));
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            cin>>grid[i][j];
+            if(grid[i][j]=='.') freecells++;
         }
-      }
     }
-
-    queue> que;
-    bool visited[n + 5][m + 5];
-    memset(visited, false, sizeof(visited));
-    if (arr[n][m] == '.') {
-      que.push({n, m});
-      visited[n][m] = true;
-    }
-    while (!que.empty()) {
-      pair curr = que.front();
-      que.pop();
-      for (ll k = 0; k < 4; k++) {
-        ll ni = curr.first + dir[k][0];
-        ll nj = curr.second + dir[k][1];
-        if (valid(ni, nj) && !visited[ni][nj] && arr[ni][nj] != '#') {
-          que.push({ni, nj});
-          visited[ni][nj] = true;
+    k=freecells-k;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(!vis[i][j]&&grid[i][j]=='.')
+            {
+                dfs(i,j,n,m);
+            }
         }
-      }
     }
-    bool good = true;
-    for (ll i = 1; i <= n; i++) {
-      for (ll j = 1; j <= m; j++) {
-        if ((arr[i][j] == 'G' && !visited[i][j]) or
-            (arr[i][j] == 'B' && visited[i][j])) {
-          good = false;
-          break;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            cout<<grid[i][j];
         }
-      }
+        cout<<endl;
     }
-    cout << (good ? "Yes" : "No") << en;
-  }
-
-  return 0;
+    return 0;
 }
