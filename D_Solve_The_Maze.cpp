@@ -1,61 +1,45 @@
-#include<bits/stdc++.h>
-
+#include<iostream>
 using namespace std;
-
-bool vis[501][501];
-int freecells=0;
-int vs=0;
-int k;
-char grid[501][501];
-int dx[] = {-1, 0, 0, 1};
-int dy[] = { 0,-1, 1, 0};
-
-void dfs(int x,int y,int n,int m)
-{
-    if(x>=0&&x<n&&y>=0&&y<m&&grid[x][y]!='#'&& !vis[x][y])
-    {
-        vis[x][y]=true;
-        if(k>0) k--;
-        else grid[x][y]='X';
-       for(int l=0;l<4;l++)
-       {
-           dfs(x+dx[l],y+dy[l],n,m);
-       }
-    }
+int dx[4] = { 0,0,1,-1 };
+int dy[4] = { 1,-1,0,0 };
+int n = 0, m = 0, k = 0;
+bool st[501][501] = { 0 };
+char map[501][501] = { 0 };
+bool dfs(int x, int y) {
+	st[x][y] = 1;
+	for (int i = 0; i < 4; i++)
+	{
+		int x1 = x + dx[i];
+		int y1 = y + dy[i];
+		if (!st[x1][y1] && map[x1][y1] == '.')
+		{
+			dfs(x1, y1);
+		}
+	}
+	if (k > 0) {
+		map[x][y] = 'X';
+		k--;
+	}
+	return false;
 }
-
-int main()
-
-{
-    int n,m;
-    cin>>n>>m>>k;
-    memset(vis,false,sizeof(vis));
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<m;j++)
-        {
-            cin>>grid[i][j];
-            if(grid[i][j]=='.') freecells++;
-        }
-    }
-    k=freecells-k;
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<m;j++)
-        {
-            if(!vis[i][j]&&grid[i][j]=='.')
-            {
-                dfs(i,j,n,m);
-            }
-        }
-    }
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<m;j++)
-        {
-            cout<<grid[i][j];
-        }
-        cout<<endl;
-    }
-    return 0;
+int main() {
+	scanf("%d%d%d", &n, &m, &k);
+	for (int i = 0; i < n; ++i)
+		scanf("%s",map[i]);
+	int ti = 0, tj = 0;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+			if (map[i][j] == '.')
+			{
+				dfs(i, j);
+				for (int i = 0; i < n; ++i) {
+					for (int j = 0; j < m; ++j)
+						printf("%c", map[i][j]);
+					printf("\n");
+				}
+				return 0;
+			}
+	}
+	return 0;
 }
