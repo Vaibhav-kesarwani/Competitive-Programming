@@ -1,7 +1,7 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 03, 2024 22:31:32
- * Workspace     :         ~/Desktop/Competitive-Programming
+ * Created       :         December 03, 2024 22:33:35
+ * Workspace     :         ~/Desktop/Competitive-Programming/Codecforces Practice
  * Problem name  :         A_Watermelon
 */
 
@@ -82,8 +82,7 @@ ll cnt = 0, ans = 0;
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     cin >> n;
-
-    ((n % 2 == 0 && n >= 2) ? yes : no) nt
+    ((n % 2 == 0 && n != 2) ? yes : no) nt
 }
 
 // main function
