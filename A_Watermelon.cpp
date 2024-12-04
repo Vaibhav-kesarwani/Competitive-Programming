@@ -1,7 +1,7 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 03, 2024 22:33:35
- * Workspace     :         ~/Desktop/Competitive-Programming/Codecforces Practice
+ * Created       :         December 04, 2024 17:58:58
+ * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         A_Watermelon
 */
 
