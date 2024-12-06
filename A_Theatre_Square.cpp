@@ -1,6 +1,6 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 06, 2024 18:27:36
+ * Created       :         December 06, 2024 18:28:26
  * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         A_Theatre_Square
 */
@@ -84,7 +84,7 @@ ll cnt = 0, ans = 0;
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     cin >> x >> y >> z;
 
-    cout << (x + z - 1) / z + (y + z - 1) / z nt
+    cout << ((x + z - 1) / z) * ((y + z - 1) / z) nt
 }
 
 // main function
