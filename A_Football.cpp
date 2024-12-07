@@ -1,6 +1,6 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 07, 2024 08:51:01
+ * Created       :         December 07, 2024 08:59:24
  * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         A_Football
 */
@@ -84,16 +84,17 @@ ll cnt = 0, ans = 0;
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     cin >> s;
     cnt = 1;
+
     for1(i, s.size()) {
         if (s[i] == s[i - 1]) {
             cnt++;
-            if (cnt >= 7) {
-                yes nt
-                return;
-            }
+        } else {
+            cnt = 1;
         }
-        else {
-            cnt = 0;
+
+        if (cnt == 7) {
+            yes nt
+            return;
         }
     }
 
