@@ -96,7 +96,7 @@ ll cnt = 0, ans = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> n >> x;
+    cin >> x >> n;
     vii v;
     for0(i, n) {
         cin >> a >> b;
