@@ -1,123 +1,57 @@
-/*
- * Author        :         Vaibhav Kesarwani
- * Created       :         December 13, 2024 09:29:31
- * Workspace     :         ~/Desktop/Competitive-Programming
- * Problem name  :         A_Boredom
-*/
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <map>
+#include <vector>
 
-
-// including the files
-#include <bits/stdc++.h>
 using namespace std;
 
-// <============================================STARTING OF THE TEMPLATE===========================================================>
-
-// some of the constant values
-const long double pi = 3.141592653589793238;
-const int INF = INT_MAX;
-const int mod = 1000000007;
-
-// different kind of for states
-#define for0(i, n) for (int i = 0; i < (int)(n); ++i) // 0 based indexing
-#define for1(i, n) for (int i = 1; i <= (int)(n); ++i) // 1 based indexing
-#define forc(i, l, r) for (int i = (int)(l); i <= (int)(r); ++i) // closed interver from l to r r inclusive
-#define forr0(i, n) for (int i = (int)(n) - 1; i >= 0; --i) // reverse 0 based.
-#define forr1(i, n) for (int i = (int)(n); i >= 1; --i) // reverse 1 based
-#define fora(a) for(auto i:a) // for the linear traveral
-
-//short hand for usual tokens
-#define pb push_back
-#define fi first
-#define se second
-#define nt << "\n";
-#define yes cout << "YES"
-#define no cout << "NO"
-#define Yes cout << "Yes"
-#define No cout << "No"
-
-// make the code to run faster
-#define Code ios_base::sync_with_stdio(false);
-#define By cin.tie(0);
-#define Vaibhav cout.tie(0);
-
-// to be used with algorithms that processes a container Eg: find(all(c),42)
-#define all(x) (x).begin(), (x).end() //Forward traversal
-#define rall(x) (x).rbegin, (x).rend() //reverse traversal
-#define gcd(a,b) __gcd(a,b)
-#define lcm(a,b) (a*(b/gcd(a,b)))
-
-// traversal function to avoid long template definition. Now with C++11 auto alleviates the pain.
-#define tr(c,i) for(__typeof__((c)).begin() i = (c).begin(); i != (c).end(); i++)
-
-// find if a given value is present in a container. Container version. Runs in log(n) for set and map
-#define present(c,x) ((c).find(x) != (c).end())
-
-//find version works for all containers. This is present in std namespace.
-#define cpresent(c,x) (find(all(c),x) != (c).end())
-
-// Avoiding wrap around of size()-1 where size is a unsigned int.
-#define sz(a) int((a).size())
-
-// Custom Functions
-int binpow (int a, int n) {
-  if (n == 0) return 1;
-  if (n % 2 == 1) return (a * binpow(a, n / 2)) % mod;
-  else {
-    int temp = binpow(a, n / 2);
-    return (temp * temp) % mod;  
-  }
+template<class T> T max(T a, T b, T c) {
+    return max(a, max(b, c));
 }
 
-int inverse (int x) {
-  return binpow(x, (mod - 2));
-}
-
-// Shorthand for commonly used types
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef pair<int, int> ii;
-typedef vector<ii> vii;
-typedef long long ll;
-typedef unsigned long long ull;
-typedef vector<char> vc;
-typedef vector<string> vs;
-typedef vector<ll> vll;
-typedef vector<vll> vvll;
-typedef set<int> si;
-typedef map<int, int> mii;
-typedef double ld;
-
-// pre-intialised values
-ll n, x, y, z, a, b, c, d;
-string s, t;
-ll cnt = 0, ans = 0;
-
-// <============================================ENDING OF THE TEMPLATE===========================================================>
-
-// solve function
-void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> n;
-    vi v(100005, 0);
-    for0(i, n) {
-        cin >> x;
-        v[x]++;
+int nextInt() {
+    int x = 0, p = 1;
+    char c;
+    do {
+        c = getchar();
+    } while (c <= 32);
+    if (c == '-') {
+        p = -1;
+        c = getchar();
     }
-    vi dp(100005, 0);
-
-    dp[0] = 0;
-    dp[1] = v[1];
-    forc(i, 2, 100000) {
-        dp[i] = max(dp[i - 1], dp[i - 2] + i * v[i]);
+    while (c >= '0' && c <= '9') {
+        x = x * 10 + c - '0';
+        c = getchar();
     }
-
-    cout << dp[100000] nt
+    return x * p;
 }
 
-// main function
-int32_t main () {
-    Code By Vaibhav
-    // int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
-        Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai();
+const int maxn = 111111;
 
-    return 0;
+int n;
+map<int, int> m;
+vector<pair<int, int> > v;
+long long f[maxn];
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    n = nextInt();
+    while (n--) {
+        int x = nextInt();
+        m[x]++;
+    }
+    for (map<int, int>::iterator it = m.begin(); it != m.end(); it++) {
+        v.push_back(make_pair(it->first, it->second));
+    }
+    for (int i = 0; i < (int)v.size(); i++) {
+        int pr = i - 1;
+        while (pr >= 0 && v[pr].first + 1 == v[i].first) pr--;
+        if (pr == -1) f[i] = 1LL * v[i].first * v[i].second;
+        else f[i] = f[pr] + 1LL * v[i].first * v[i].second;
+        if (i != 0)
+            f[i] = max(f[i], f[i - 1]);
+    }
+    cout << f[(int)v.size() - 1] << '\n';
 }
