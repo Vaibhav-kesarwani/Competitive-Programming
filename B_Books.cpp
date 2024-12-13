@@ -1,6 +1,6 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 13, 2024 09:33:20
+ * Created       :         December 13, 2024 09:34:17
  * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         B_Books
 */
@@ -96,13 +96,31 @@ ll cnt = 0, ans = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    
+    int n, t;
+    cin >> n >> t;
+    vector<int> a(n);
+    for (int& k : a)
+        cin >> k;
+
+    int r = 0;
+    int sm = 0;
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
+        while (r < n && sm + a[r] <= t) {
+            sm += a[r];
+            ++r;
+        }
+        ans = max(ans, r - i);
+        sm -= a[i];
+    }
+
+    cout << ans nt
 }
 
 // main function
 int32_t main () {
     Code By Vaibhav
-    int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
+    // int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
         Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai();
 
     return 0;
