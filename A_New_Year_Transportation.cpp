@@ -1,6 +1,6 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 13, 2024 09:10:06
+ * Created       :         December 13, 2024 09:11:38
  * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         A_New_Year_Transportation
 */
@@ -100,16 +100,9 @@ void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     vi a(n);
     for0(i, n) cin >> a[i];
 
-    int i = 0;
-    while (i < n) {
-        if (i == x - 1) {
-            yes nt;
-            return;
-        }
-        i += a[i];
-    }
+    while (cnt < x - 1) cnt += a[cnt];
 
-    no nt;
+    (cnt == x - 1 ? yes : no) nt
 }
 
 // main function
