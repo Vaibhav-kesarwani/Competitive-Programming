@@ -1,6 +1,6 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 07, 2024 08:59:24
+ * Created       :         December 13, 2024 09:08:35
  * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         A_Football
 */
@@ -11,6 +11,11 @@
 using namespace std;
 
 // <============================================STARTING OF THE TEMPLATE===========================================================>
+
+// some of the constant values
+const long double pi = 3.141592653589793238;
+const int INF = INT_MAX;
+const int mod = 1000000007;
 
 // different kind of for states
 #define for0(i, n) for (int i = 0; i < (int)(n); ++i) // 0 based indexing
@@ -53,6 +58,20 @@ using namespace std;
 // Avoiding wrap around of size()-1 where size is a unsigned int.
 #define sz(a) int((a).size())
 
+// Custom Functions
+int binpow (int a, int n) {
+  if (n == 0) return 1;
+  if (n % 2 == 1) return (a * binpow(a, n / 2)) % mod;
+  else {
+    int temp = binpow(a, n / 2);
+    return (temp * temp) % mod;  
+  }
+}
+
+int inverse (int x) {
+  return binpow(x, (mod - 2));
+}
+
 // Shorthand for commonly used types
 typedef vector<int> vi;
 typedef vector<vi> vvi;
@@ -68,11 +87,6 @@ typedef set<int> si;
 typedef map<int, int> mii;
 typedef double ld;
 
-// some of the constant values
-const long double pi = 3.141592653589793238;
-const int INF = INT_MAX;
-const int mod = 1000000007;
-
 // pre-intialised values
 ll n, x, y, z, a, b, c, d;
 string s, t;
@@ -82,23 +96,31 @@ ll cnt = 0, ans = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> s;
-    cnt = 1;
+    int goal = 0;
+    cin >> n;
 
-    for1(i, s.size()) {
-        if (s[i] == s[i - 1]) {
-            cnt++;
-        } else {
-            cnt = 1;
+    string team, win;
+    while (n--)
+    {
+        if (goal != 0)
+        {
+            cin >> team;
+            if (team == win)
+            {
+                goal += 1;
+            }
+            else
+            {
+                goal -= 1;
+            }
         }
-
-        if (cnt == 7) {
-            yes nt
-            return;
+        else
+        {
+            cin >> win;
+            goal = 1;
         }
     }
-
-    no nt
+    cout << win nt
 }
 
 // main function
