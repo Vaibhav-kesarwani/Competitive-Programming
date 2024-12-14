@@ -20,5 +20,6 @@
     "unordered_set": "cpp",
     "valarray": "cpp",
     "vector": "cpp"
-  }
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }
