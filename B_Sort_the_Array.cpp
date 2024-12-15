@@ -1,6 +1,6 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 15, 2024 09:55:10
+ * Created       :         December 15, 2024 10:05:01
  * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         B_Sort_the_Array
 */
@@ -96,20 +96,30 @@ ll cnt = 0, ans = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> n;
-    vi a(n);
-    for0(i, n) cin >> a[i];
-    vi b = a;
-    sort(all(b));
-    int l = 0, r = n - 1;
-    while (l < n && a[l] == b[l]) l++;
-    while (r >= 0 && a[r] == b[r]) r--;
-    if (l > r) cout << "yes\n";
-    else {
-        reverse(a.begin() + l, a.begin() + r + 1);
-        if (a == b) cout << "yes\n" << l + 1 << " " << r + 1 << "\n";
-        else cout << "no\n";
+    int n, s(1), e(1); cin >> n;
+    int a[n];
+
+    for (int i = 0; i < n; i++) cin >> a[i];
+
+    for (int i = 1; i < n; i++)
+        if (a[i] < a[i - 1]) {
+            s = i;
+            break;
+        }
+
+    for (int i = n - 1; i >= 1; i--)
+        if (a[i] < a[i - 1]) {
+            e = i + 1;
+            break;
+        }
+
+    reverse(a + s - 1, a + e);
+
+    if (is_sorted(a, a + n)) {
+        yes nt
+        cout << s << " " << e << endl;
     }
+    else no nt
 }
 
 // main function
