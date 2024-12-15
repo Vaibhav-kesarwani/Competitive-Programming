@@ -1,6 +1,6 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 15, 2024 09:57:34
+ * Created       :         December 15, 2024 10:02:54
  * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         A_Dreamoon_and_Stairs
 */
@@ -96,17 +96,28 @@ ll cnt = 0, ans = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    int m, n;
+    int n, m;
     cin >> n >> m;
-    if (n < m) {
-        cout << -1;
-        return;
+
+    bool multiple = false;
+    int twos = n / 2;
+    int ones = n - twos * 2;
+
+    while (twos >= 0)
+    {
+        if ((ones + twos) % m == 0)
+        {
+            multiple = true;
+            break;
+        }
+        twos--;
+        ones = n - twos * 2;
     }
-    if (n % 2 == 0) {
-        cout << n / 2;
-        return;
-    }
-    cout << (n / 2) + 1;
+
+    if (multiple == true)
+        cout << ones + twos nt
+    else
+        cout << -1 nt
 }
 
 // main function
