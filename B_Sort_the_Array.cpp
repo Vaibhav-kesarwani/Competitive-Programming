@@ -116,10 +116,10 @@ void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     reverse(a + s - 1, a + e);
 
     if (is_sorted(a, a + n)) {
-        yes nt
+        cout << "yes" nt
         cout << s << " " << e << endl;
     }
-    else no nt
+    else cout << "no" nt
 }
 
 // main function
