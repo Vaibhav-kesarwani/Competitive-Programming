@@ -105,7 +105,8 @@ ll cnt = 0, ans = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    
+    cin >> n;
+    cout << (n * 60) / 20 nt
 }
 
 // main function
