@@ -1,8 +1,8 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 16, 2024 09:33:43
+ * Created       :         December 16, 2024 09:35:11
  * Workspace     :         ~/Desktop/Competitive-Programming
- * Problem name  :         Overspeeding_Fine
+ * Problem name  :         Chess_Time
 */
 
 
@@ -105,10 +105,7 @@ ll cnt = 0, ans = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> n;
-    if (n <= 70) cout << 0 nt
-    else if (n <= 100) cout << 500 nt
-    else cout << 2000 nt
+    
 }
 
 // main function
