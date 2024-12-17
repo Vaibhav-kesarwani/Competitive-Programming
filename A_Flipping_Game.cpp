@@ -1,6 +1,6 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 17, 2024 14:42:27
+ * Created       :         December 17, 2024 14:43:22
  * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         A_Flipping_Game
 */
@@ -105,24 +105,29 @@ ll cnt = 0, ans = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
+    int n, a, count1(0), extra0(0), extra0max(-1);
     cin >> n;
-    vi a(n);
-    for0(i, n) cin >> a[i];
-    int ans = 0;
-    for0(i, n) {
-        for0(j, n) {
-            int cnt = 0;
-            for0(k, n) {
-                if (k >= i && k <= j) {
-                    cnt += 1 - a[k];
-                } else {
-                    cnt += a[k];
-                }
+    while (n--)
+    {
+        cin >> a;
+        if (a == 1)
+        {
+            count1 += 1;
+            if (extra0 > 0)
+            {
+                extra0 -= 1;
             }
-            ans = max(ans, cnt);
+        }
+        else
+        {
+            extra0 += 1;
+            if (extra0 > extra0max)
+            {
+                extra0max = extra0;
+            }
         }
     }
-    cout << ans nt
+    cout << count1 + extra0max  nt
 }
 
 // main function
