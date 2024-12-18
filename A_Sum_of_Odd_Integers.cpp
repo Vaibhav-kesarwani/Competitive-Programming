@@ -1,6 +1,6 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 18, 2024 14:54:53
+ * Created       :         December 18, 2024 14:55:50
  * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         A_Sum_of_Odd_Integers
 */
@@ -105,20 +105,8 @@ ll cnt = 0, ans = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> n >> x;
-    if (n % 2 == 0) {
-        if (x % 2 == 0 && x <= n) {
-            yes nt
-        } else {
-            no nt
-        }
-    } else {
-        if (x % 2 == 1 && x <= n) {
-            yes nt
-        } else {
-            no nt
-        }
-    }
+    cin >> x >> y;
+    (y * y <= x && x % 2 == y % 2 ? yes : no) nt
 }
 
 // main function
