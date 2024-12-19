@@ -1,6 +1,6 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         December 06, 2024 18:18:29
+ * Created       :         December 19, 2024 15:12:53
  * Workspace     :         ~/Desktop/Competitive-Programming
  * Problem name  :         B_Transfusion
 */
@@ -12,9 +12,17 @@ using namespace std;
 
 // <============================================STARTING OF THE TEMPLATE===========================================================>
 
+// some of the constant values
+const long double pi = 3.141592653589793238;
+const int INF = INT_MAX;
+const int mod = 1000000007;
+
 // different kind of for states
 #define for0(i, n) for (int i = 0; i < (int)(n); ++i) // 0 based indexing
+#define for01(i, n) for (int i = 0; i <= (int)(n); ++i) // 0 based indexing from 0 to n
 #define for1(i, n) for (int i = 1; i <= (int)(n); ++i) // 1 based indexing
+#define for10(i, n) for (int i = 1; i < (int)(n); ++i) // 1 based indexing from 1 to n-1
+#define forl0(i, l, r) for (int i = (int)(l); i < (int)(r); ++i) // closed interver from l to r r exclusive
 #define forc(i, l, r) for (int i = (int)(l); i <= (int)(r); ++i) // closed interver from l to r r inclusive
 #define forr0(i, n) for (int i = (int)(n) - 1; i >= 0; --i) // reverse 0 based.
 #define forr1(i, n) for (int i = (int)(n); i >= 1; --i) // reverse 1 based
@@ -53,6 +61,20 @@ using namespace std;
 // Avoiding wrap around of size()-1 where size is a unsigned int.
 #define sz(a) int((a).size())
 
+// Custom Functions
+int binpow (int a, int n) {
+  if (n == 0) return 1;
+  if (n % 2 == 1) return (a * binpow(a, n / 2)) % mod;
+  else {
+    int temp = binpow(a, n / 2);
+    return (temp * temp) % mod;  
+  }
+}
+
+int inverse (int x) {
+  return binpow(x, (mod - 2));
+}
+
 // Shorthand for commonly used types
 typedef vector<int> vi;
 typedef vector<vi> vvi;
@@ -65,13 +87,14 @@ typedef vector<string> vs;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 typedef set<int> si;
+typedef set<ll> sll;
+typedef unordered_set<int> usi;
+typedef unordered_set<ll> usll;
+typedef unordered_map<int, int> umii;
+typedef unordered_map<ll, ll> umll;
 typedef map<int, int> mii;
+typedef map<ll, ll> mll;
 typedef double ld;
-
-// some of the constant values
-const long double pi = 3.141592653589793238;
-const int INF = INT_MAX;
-const int mod = 1000000007;
 
 // pre-intialised values
 ll n, x, y, z, a, b, c, d;
@@ -82,12 +105,20 @@ ll cnt = 0, ans = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> n;
-    vi v(n);
-
-    for0(i, n) cin >> v[i];
-
-    
+        cin >> n;
+    vector<int> a(n);
+    array<int64_t, 2> sum = {0, 0};
+    array<int64_t, 2> cnt = {0, 0};
+    for (int i = 0; i < n; i++) {
+      cin >> a[i];
+      sum[i % 2] += a[i];
+      cnt[i % 2] += 1;
+    }
+    if (sum[0] % cnt[0] == 0 && sum[1] % cnt[1] == 0 && sum[0] / cnt[0] == sum[1] / cnt[1]) {
+      yes nt
+    } else {
+      no nt
+    }
 }
 
 // main function
