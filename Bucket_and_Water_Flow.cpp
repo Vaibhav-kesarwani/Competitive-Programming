@@ -108,8 +108,8 @@ void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     cin >> a >> b >> c >> d;
 
     if(a + (c * d) > b) cout<< "overFlow" nt
-	else if(a + (c * d) < b) cout<<"Unfilled" nt 
-	else cout<< "filled" nt
+	  else if(a + (c * d) < b) cout<<"Unfilled" nt 
+	  else cout<< "filled" nt
 }
 
 // main function
