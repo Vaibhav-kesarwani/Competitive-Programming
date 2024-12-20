@@ -18,6 +18,7 @@ inline int read()
 }
 
 const int p = 998244353;
+
 int qp(int x, int y)
 {
     int res = 1;
