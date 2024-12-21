@@ -106,7 +106,6 @@ ll cnt = 0, ans = 0;
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     cin >> n >> s;
-
     for0(i, n - 1) {
         if (s[i] == s[i + 1]) cnt++;
     }
