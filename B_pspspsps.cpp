@@ -106,7 +106,23 @@ ll cnt = 0, ans = 0;
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     cin >> n >> s;
-    
+    if (s[0] == 's') s[0] = '.';
+    if (s.back() == 'p') s.back() = '.';
+    bool found_p = false;
+    bool found_s = false;
+    for (const auto c : s)
+    {
+        switch (c)
+        {
+        case 'p':
+            found_p = true;
+            break;
+        case 's':
+            found_s = true;
+            break;
+        }
+    }
+    cout << (found_p && found_s ? "NO" : "YES") nt
 }
 
 // main function
