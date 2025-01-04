@@ -95,6 +95,8 @@ typedef unordered_map<ll, ll> umll;
 typedef map<int, int> mii;
 typedef map<ll, ll> mll;
 typedef double ld;
+#define endl "\n"
+#define int long long
 
 // pre-intialised values
 ll n, x, y, z, a, b, c, d;
