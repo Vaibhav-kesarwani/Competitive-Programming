@@ -1,8 +1,8 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         January 05, 2025 09:19:48
+ * Created       :         January 04, 2025 21:15:25
  * Workspace     :         ~/Desktop/Competitive-Programming
- * Problem name  :         A_Watermelon
+ * Problem name  :         D_Gifts_Order
 */
 
 
@@ -96,6 +96,7 @@ typedef map<int, int> mii;
 typedef map<ll, ll> mll;
 typedef double ld;
 
+
 // pre-intialised values
 ll n, x, y, z, a, b, c, d;
 string s, t;
@@ -105,14 +106,46 @@ ll cnt = 0, ans = 0, sum = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> n;
-    (n % 2 == 0 && n > 2 ? yes : no) nt 
+    cin >> n >> x;
+    vi a(n);
+    for0(i, n) cin >> a[i];
+
+    auto help = [&](const vi &a, int l, int r) -> int {
+        int maxi = a[l], mini = a[l];
+
+        forc(i, (l + 1), r) {
+            maxi = max(maxi, a[i]);
+            mini = min(mini, a[i]);
+        }
+
+        return maxi - mini - (r - l);
+    };
+
+    auto maxi = [&]() -> int{
+        int maxo = INT_MIN;
+        for0(i, n) {
+            forl0(j, i, n) {
+                maxo = max(maxo,help(a, i, j));
+            }
+        }
+
+        return maxo;
+    };
+
+    cout << maxi() nt
+
+    for0(i , x) {
+        int b, c; cin >> b >> c;
+
+        a[b - 1] = c;
+        cout << maxi() nt
+    }
 }
 
 // main function
 int32_t main () {
     Code By Vaibhav
-    // int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
+    int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
         Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai();
 
     return 0;

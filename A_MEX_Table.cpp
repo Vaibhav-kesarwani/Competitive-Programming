@@ -1,8 +1,8 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         January 05, 2025 09:19:48
+ * Created       :         January 04, 2025 20:05:08
  * Workspace     :         ~/Desktop/Competitive-Programming
- * Problem name  :         A_Watermelon
+ * Problem name  :         A_MEX_Table
 */
 
 
@@ -105,14 +105,14 @@ ll cnt = 0, ans = 0, sum = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> n;
-    (n % 2 == 0 && n > 2 ? yes : no) nt 
+    cin >> x >> y;    
+    cout << max(x, y) + 1 nt
 }
 
 // main function
 int32_t main () {
     Code By Vaibhav
-    // int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
+    int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
         Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai();
 
     return 0;

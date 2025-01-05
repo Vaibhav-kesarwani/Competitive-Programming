@@ -1,8 +1,8 @@
 /*
  * Author        :         Vaibhav Kesarwani
- * Created       :         January 05, 2025 09:19:48
+ * Created       :         January 04, 2025 20:32:45
  * Workspace     :         ~/Desktop/Competitive-Programming
- * Problem name  :         A_Watermelon
+ * Problem name  :         B_Gorilla_and_the_Exam
 */
 
 
@@ -105,14 +105,17 @@ ll cnt = 0, ans = 0, sum = 0;
 
 // solve function
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> n;
-    (n % 2 == 0 && n > 2 ? yes : no) nt 
+    cin >> n >> x;
+    vi a(n);    
+    for0(i, n) cin >> a[i];
+
+    
 }
 
 // main function
 int32_t main () {
     Code By Vaibhav
-    // int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
+    int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
         Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai();
 
     return 0;
