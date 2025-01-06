@@ -1,0 +1,226 @@
+#include<bits/stdc++.h>
+#define L(i, j, k) for(int i = (j); i <= (k); ++i)
+#define R(i, j, k) for(int i = (j); i >= (k); --i)
+#define ll long long 
+#define sz(a) ((int) (a).size())
+#define pb emplace_back
+#define me(a, x) memset(a, x, sizeof(a))
+#define vi vector<int>
+#define ull unsigned long long
+using namespace std;
+#define pii pair<int,int>
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+inline int read(){
+   int s=0,w=1;
+   char ch=getchar();
+   while(ch<'0'||ch>'9'){if(ch=='-')w=-1;ch=getchar();}
+   while(ch>='0'&&ch<='9') s=s*10+ch-'0',ch=getchar();
+   return s*w;
+}
+// #define local
+int n=read();
+#ifdef local
+namespace 
+{
+mt19937_64 rnd(read());
+int cur=rnd()%n+1,L=1,R=n,tl=1,tr=n;
+int S=0;
+}
+int query(int x)
+{
+    // if(x==0&&tl==L&&tr==R){printf("%lld %lld\n",L,R);puts("-1");exit(0);}
+    ++S;
+    if(cur==x)
+    {
+        cur=rnd()%n+1,L=1,R=n,tl=1,tr=n;
+        // printf("%lld\n",cur);
+        return 2;    
+    }
+    if(x>cur) R=min(R,x-1);
+    else L=max(L,x+1);
+    int t=tl+rnd()%(tr-tl+1);
+    if(t<L||t>R)
+    {
+        if(t<L) tl=L;
+        else tr=R;
+        return 1;
+    }
+    else
+    {
+        x=t;
+        return 0;
+    }
+    
+    // L=max(L,x),R=min(R,x-1);
+}
+#else
+int query(int x)
+{
+    printf("%lld\n",x);fflush(stdout);
+    return read();
+}
+#endif
+int opers=0;
+struct status {
+	ll l, r;
+	ll DL, DR;
+	status (ll A = 0,ll B=0,ll C=0,ll D=0){
+		l=A;
+		r=B;
+		DL=C;
+		DR=D;
+	}
+};
+mt19937_64 hash_rng(12359095);
+ull A = hash_rng() * 2 + 1;
+ull B = hash_rng() * 2 + 1;
+ull C = hash_rng() * 2 + 1;
+ull D = hash_rng() * 2 + 1;
+ll HASH(status u) {
+	return A * u.l + B * u.r + C * u.DL + D * u.DR;
+}
+map<status,double>mp,nmp;
+bool operator < (status a, status b) {
+	if(a.l!=b.l)return a.l<b.l;
+	if(a.r!=b.r)return a.r<b.r;
+	if(a.DL!=b.DL)return a.DL<b.DL;
+	if(a.DR!=b.DR)return a.DR<b.DR;
+	return 0;
+}
+bool operator == (status a, status b) {
+	return a.l == b.l && a.r == b.r && a.DL == b.DL && a.DR == b.DR;
+}
+map<ll,double>qwq;
+int CNT=0;
+mt19937 rng;
+void solve(){
+	++CNT;
+	mp.clear();
+	nmp.clear();
+	mp[status(1,n,1,n)]=1;
+	while(1){
+		double sum = 0;
+		for(auto u : mp)
+			sum += u.second * (u.first.r - u.first.l + 1);
+		// cout << S << ' ' << sum << ' ' << sz(mp) << endl;
+		// if(S == 240) {
+		// 	vector<pair<status,double>>vc;
+		// 	for(auto u : mp) {
+		// 		vc.pb(u.first, u.second * (u.first.r - u.first.l + 1));
+		// 	}
+		// 	sort(vc.begin(), vc.end(), [&] (pair<status,double> A, pair<status,double> B){
+		// 		return A.second<B.second;
+		// 	});
+		// }
+		nmp.clear();
+		qwq.clear();
+		double mx = -1;
+		ll MID;
+		for(auto u : mp) {
+			double W = u.second * (u.first.r - u.first.l + 1);
+			qwq[(u.first.l+u.first.r)/2]+=W;
+		}
+		for(auto u:qwq){
+			if(u.second>mx){
+				mx=u.second;
+				MID=u.first;
+			}
+		}
+		// if(S % 80 != 0) MID = 1;
+		int o = query(MID);
+		// cerr<<o<<' ';
+		if(o > 1) {
+			// cerr<<"need="<<1.*S/CNT<<endl;
+			return;
+		}
+		vector<pair<status,double>>vc;
+		for(auto u : mp) 
+			if(u.first.l <= MID && MID <= u.first.r) vc.pb(u);
+		for(auto u : vc) {
+			mp.erase(u.first);
+			if(u.first.l != MID)
+				mp[status(u.first.l, MID - 1, u.first.DL, u.first.DR)] += u.second;
+			if(u.first.r != MID)
+				mp[status(MID + 1, u.first.r, u.first.DL, u.first.DR)] += u.second;
+		}
+		if(o == 0) {
+		for(auto &u : mp) {
+			u.second *= 1. * (u.first.r - u.first.l + 1) / (u.first.DR - u.first.DL + 1);
+		}
+		}else {
+		for(auto u : mp) {
+			double W = u.second * (u.first.r - u.first.l + 1);
+			// if(W < 1e-5) continue;
+			if(u.first.r != u.first.DR)
+				nmp[status(u.first.l, u.first.r, u.first.DL, u.first.r)] += u.second * (u.first.DR - u.first.r) / (u.first.DR - u.first.DL + 1);
+			if(u.first.l != u.first.DL)
+				nmp[status(u.first.l, u.first.r, u.first.l, u.first.DR)] += u.second * (u.first.l - u.first.DL) / (u.first.DR - u.first.DL + 1);
+		}
+		mp=nmp;
+		}
+	}
+	return;
+
+    int l=1,r=n;
+    int t=(l+r)>>1;
+    int _=query(t);
+    while(_==0) _=query(0);
+    if(_>1) return ;
+    
+    while(1)
+    {
+        // printf("%lld %lld\n",l,r);
+        if(t<r)
+        {
+            int z=(t+1+r)>>1;
+            int ok=query(z);
+            
+            for(int T=20; ok==0&&T--;) ok=query(z);
+            if(ok>1) return ;
+            if(ok)
+            {
+                // puts("C");
+                // assert(cur>t);
+                l=t+1,t=(l+r)>>1;
+            }
+            else
+            {
+                ++opers;
+                // puts("A");
+                // assert(cur<t);
+                r=t-1,t=(l+r)>>1;
+                int _=query(t);
+                while(_==0) _=query(0);
+                if(_>1) return ;
+            }
+        }
+        else
+        {
+            // puts("B");
+            // assert(cur<t);
+            r=t-1,t=(l+r)>>1;
+            int _=query(t);
+            while(_==0) _=query(0);
+            if(_>1) return ;
+        }
+    }
+}
+signed main()
+{
+    
+    for(int T=read(); T--; solve());
+#ifdef local
+    cerr<<1.0*S/800<<endl;
+    cerr<<1.0*opers/800<<endl;
+#endif
+    return 0;
+}
+/*
+100000000000
+
+1000000000000000000
+250111
+800
+*/
