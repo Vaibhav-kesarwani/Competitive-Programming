@@ -1,152 +1,170 @@
-/*
- * Author        :         Vaibhav Kesarwani
- * Created       :         January 04, 2025 21:15:25
- * Workspace     :         ~/Desktop/Competitive-Programming
- * Problem name  :         D_Gifts_Order
-*/
-
-
-// including the files
 #include <bits/stdc++.h>
-using namespace std;
 
-// <============================================STARTING OF THE TEMPLATE===========================================================>
-
-// some of the constant values
-const long double pi = 3.141592653589793238;
-const int INF = INT_MAX;
-const int mod = 1000000007;
-
-// different kind of for states
-#define for0(i, n) for (int i = 0; i < (int)(n); ++i) // 0 based indexing
-#define for01(i, n) for (int i = 0; i <= (int)(n); ++i) // 0 based indexing from 0 to n
-#define for1(i, n) for (int i = 1; i <= (int)(n); ++i) // 1 based indexing
-#define for10(i, n) for (int i = 1; i < (int)(n); ++i) // 1 based indexing from 1 to n-1
-#define forl0(i, l, r) for (int i = (int)(l); i < (int)(r); ++i) // closed interver from l to r r exclusive
-#define forc(i, l, r) for (int i = (int)(l); i <= (int)(r); ++i) // closed interver from l to r r inclusive
-#define forr0(i, n) for (int i = (int)(n) - 1; i >= 0; --i) // reverse 0 based.
-#define forr1(i, n) for (int i = (int)(n); i >= 1; --i) // reverse 1 based
-#define fora(a) for(auto i:a) // for the linear traveral
-
-//short hand for usual tokens
-#define pb push_back
-#define fi first
-#define se second
-#define nt << "\n";
-#define yes cout << "YES"
-#define no cout << "NO"
-#define Yes cout << "Yes"
-#define No cout << "No"
-
-// make the code to run faster
-#define Code ios_base::sync_with_stdio(false);
-#define By cin.tie(0);
-#define Vaibhav cout.tie(0);
-
-// to be used with algorithms that processes a container Eg: find(all(c),42)
-#define all(x) (x).begin(), (x).end() //Forward traversal
-#define rall(x) (x).rbegin, (x).rend() //reverse traversal
-#define gcd(a,b) __gcd(a,b)
-#define lcm(a,b) (a*(b/gcd(a,b)))
-
-// traversal function to avoid long template definition. Now with C++11 auto alleviates the pain.
-#define tr(c,i) for(__typeof__((c)).begin() i = (c).begin(); i != (c).end(); i++)
-
-// find if a given value is present in a container. Container version. Runs in log(n) for set and map
-#define present(c,x) ((c).find(x) != (c).end())
-
-//find version works for all containers. This is present in std namespace.
-#define cpresent(c,x) (find(all(c),x) != (c).end())
-
-// Avoiding wrap around of size()-1 where size is a unsigned int.
-#define sz(a) int((a).size())
-
-// Custom Functions
-int binpow (int a, int n) {
-  if (n == 0) return 1;
-  if (n % 2 == 1) return (a * binpow(a, n / 2)) % mod;
-  else {
-    int temp = binpow(a, n / 2);
-    return (temp * temp) % mod;  
-  }
-}
-
-int inverse (int x) {
-  return binpow(x, (mod - 2));
-}
-
-// Shorthand for commonly used types
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef pair<int, int> ii;
-typedef vector<ii> vii;
-typedef long long ll;
-typedef unsigned long long ull;
-typedef vector<char> vc;
-typedef vector<string> vs;
-typedef vector<ll> vll;
-typedef vector<vll> vvll;
-typedef set<int> si;
-typedef set<ll> sll;
-typedef unordered_set<int> usi;
-typedef unordered_set<ll> usll;
-typedef unordered_map<int, int> umii;
-typedef unordered_map<ll, ll> umll;
-typedef map<int, int> mii;
-typedef map<ll, ll> mll;
-typedef double ld;
-
-
-// pre-intialised values
-ll n, x, y, z, a, b, c, d;
-string s, t;
-ll cnt = 0, ans = 0, sum = 0;
-
-// <============================================ENDING OF THE TEMPLATE===========================================================>
-
-// solve function
-void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
-    cin >> n >> x;
-    vi a(n);
-    for0(i, n) cin >> a[i];
-
-    auto help = [&](const vi &a, int l, int r) -> int {
-        int maxi = a[l], mini = a[l];
-
-        forc(i, (l + 1), r) {
-            maxi = max(maxi, a[i]);
-            mini = min(mini, a[i]);
-        }
-
-        return maxi - mini - (r - l);
-    };
-
-    auto maxi = [&]() -> int{
-        int maxo = INT_MIN;
-        for0(i, n) {
-            forl0(j, i, n) {
-                maxo = max(maxo,help(a, i, j));
+using i64 = long long;
+using u64 = unsigned long long;
+using u32 = unsigned;
+using u128 = unsigned __int128;
+template<class Info>
+struct SegmentTree {
+    int n;
+    std::vector<Info> info;
+    SegmentTree() : n(0) {}
+    SegmentTree(int n_, Info v_ = Info()) {
+        init(n_, v_);
+    }
+    template<class T>
+    SegmentTree(std::vector<T> init_) {
+        init(init_);
+    }
+    void init(int n_, Info v_ = Info()) {
+        init(std::vector(n_, v_));
+    }
+    template<class T>
+    void init(std::vector<T> init_) {
+        n = init_.size();
+        info.assign(4 << std::__lg(n), Info());
+        std::function<void(int, int, int)> build = [&](int p, int l, int r) {
+            if (r - l == 1) {
+                info[p] = init_[l];
+                return;
             }
+            int m = (l + r) / 2;
+            build(2 * p, l, m);
+            build(2 * p + 1, m, r);
+            pull(p);
+        };
+        build(1, 0, n);
+    }
+    void pull(int p) {
+        info[p] = info[2 * p] + info[2 * p + 1];
+    }
+    void modify(int p, int l, int r, int x, const Info &v) {
+        if (r - l == 1) {
+            info[p] = v;
+            return;
         }
+        int m = (l + r) / 2;
+        if (x < m) {
+            modify(2 * p, l, m, x, v);
+        } else {
+            modify(2 * p + 1, m, r, x, v);
+        }
+        pull(p);
+    }
+    void modify(int p, const Info &v) {
+        modify(1, 0, n, p, v);
+    }
+    Info rangeQuery(int p, int l, int r, int x, int y) {
+        if (l >= y || r <= x) {
+            return Info();
+        }
+        if (l >= x && r <= y) {
+            return info[p];
+        }
+        int m = (l + r) / 2;
+        return rangeQuery(2 * p, l, m, x, y) + rangeQuery(2 * p + 1, m, r, x, y);
+    }
+    Info rangeQuery(int l, int r) {
+        return rangeQuery(1, 0, n, l, r);
+    }
+    template<class F>
+    int findFirst(int p, int l, int r, int x, int y, F &&pred) {
+        if (l >= y || r <= x) {
+            return -1;
+        }
+        if (l >= x && r <= y && !pred(info[p])) {
+            return -1;
+        }
+        if (r - l == 1) {
+            return l;
+        }
+        int m = (l + r) / 2;
+        int res = findFirst(2 * p, l, m, x, y, pred);
+        if (res == -1) {
+            res = findFirst(2 * p + 1, m, r, x, y, pred);
+        }
+        return res;
+    }
+    template<class F>
+    int findFirst(int l, int r, F &&pred) {
+        return findFirst(1, 0, n, l, r, pred);
+    }
+    template<class F>
+    int findLast(int p, int l, int r, int x, int y, F &&pred) {
+        if (l >= y || r <= x) {
+            return -1;
+        }
+        if (l >= x && r <= y && !pred(info[p])) {
+            return -1;
+        }
+        if (r - l == 1) {
+            return l;
+        }
+        int m = (l + r) / 2;
+        int res = findLast(2 * p + 1, m, r, x, y, pred);
+        if (res == -1) {
+            res = findLast(2 * p, l, m, x, y, pred);
+        }
+        return res;
+    }
+    template<class F>
+    int findLast(int l, int r, F &&pred) {
+        return findLast(1, 0, n, l, r, pred);
+    }
+};
 
-        return maxo;
-    };
+constexpr i64 inf = 1E18;
+struct Info {
+    i64 len;
+    i64 maxl;
+    i64 maxr;
+    i64 minl;
+    i64 minr;
+    i64 ans;
+    Info() : len(0), maxl(-inf), maxr(-inf), minl(inf), minr(inf), ans(0) {}
+    Info(int x, int i) : len(1), maxl(x + i), maxr(x - i), minl(x - i), minr(x + i), ans(0) {}
+};
 
-    cout << maxi() nt
-
-    for0(i , x) {
-        int b, c; cin >> b >> c;
-
-        a[b - 1] = c;
-        cout << maxi() nt
+Info operator+(const Info &a, const Info &b) {
+    Info c;
+    c.len = a.len + b.len;
+    c.maxl = std::max(a.maxl, b.maxl);
+    c.maxr = std::max(a.maxr, b.maxr);
+    c.minl = std::min(a.minl, b.minl);
+    c.minr = std::min(a.minr, b.minr);
+    c.ans = std::max({a.ans, b.ans, a.maxl - b.minr, b.maxr - a.minl});
+    return c;
+}
+void solve() {
+    int n, q;
+    std::cin >> n >> q;
+    
+    SegmentTree<Info> seg(n);
+    for (int i = 0; i < n; i++) {
+        int a;
+        std::cin >> a;
+        seg.modify(i, Info(a, i));
+    }
+    std::cout << seg.rangeQuery(0, n).ans << "\n";
+    for (int i = 0; i < q; i++) {
+        int p, x;
+        std::cin >> p >> x;
+        p--;
+        seg.modify(p, Info(x, p));
+        std::cout << seg.rangeQuery(0, n).ans << "\n";
     }
 }
 
-// main function
-int32_t main () {
-    Code By Vaibhav
-    int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
-        Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai();
-
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    
+    int t;
+    std::cin >> t;
+    
+    while (t--) {
+        solve();
+    }
+    
     return 0;
 }
