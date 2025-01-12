@@ -69,7 +69,8 @@
     "typeindex": "cpp",
     "typeinfo": "cpp",
     "variant": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "span": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
