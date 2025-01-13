@@ -1,15 +1,11 @@
 class Solution {
 public:
     int minimumLength(string s) {
-        unordered_map<char, int> count;
-        for (char c : s) count[c]++;
-        int minus = 0;
-        for (auto& entry : count) {
-            while (entry.second >= 3) {
-                minus += 2;
-                entry.second -= 2;
-            }
-        }
-        return s.length() - minus;
+        ios::sync_with_stdio(0); cin.tie(0);
+        vector<int>ct(26);
+        for(char c:s) ct[c-'a']++;
+        int res = 0;
+        for(int i=0;i<26;i++) res += (ct[i]%2? 1 : (ct[i]? 2 : 0));
+        return res;
     }
 };
