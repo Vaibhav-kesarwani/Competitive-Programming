@@ -2,16 +2,26 @@
 using namespace std;
 int main() {
 	int t[5];
-	for(int i = 0; i < 5; ++i)
-		scanf("%d", &t[i]);
-	sort(t, t + 5);
-	int best_remove = 0;
+	int s = 0;
 	for(int i = 0; i < 5; ++i) {
-		if(i + 1 < 5 && t[i] == t[i+1])
-			best_remove = max(best_remove, 2 * t[i]);
-		if(i + 2 < 5 && t[i] == t[i+2])
-			best_remove = max(best_remove, 3 * t[i]);
+		scanf("%d", &t[i]);
+		s += t[i];
 	}
-	printf("%dn", t[0]+t[1]+t[2]+t[3]+t[4]-best_remove);
+	int best = s;
+	
+	// discard 2 cards
+	for(int a = 0; a < 5; ++a)
+		for(int b = a + 1; b < 5; ++b)
+			if(t[a] == t[b])
+				best = min(best, s - 2 * t[a]);
+	
+	// or discard 3 cards
+	for(int a = 0; a < 5; ++a)
+		for(int b = a + 1; b < 5; ++b)
+			for(int c = b + 1; c < 5; ++c)
+				if(t[a] == t[b] && t[a] == t[c])
+					best = min(best, s - 3 * t[a]);
+	
+	printf("%d\n", best);
 	return 0;
 }
