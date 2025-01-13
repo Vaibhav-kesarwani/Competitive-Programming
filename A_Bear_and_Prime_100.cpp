@@ -1,27 +1,46 @@
-#include<bits/stdc++.h>
+#include<algorithm>
+#include <iostream>
+#include <stdlib.h>
+#include <string.h>
+#include  <stdio.h>
+#include   <math.h>
+#include   <time.h>
+#include   <vector>
+#include   <bitset>
+#include    <queue>
+#include      <set>
+#include      <map>
 using namespace std;
-int main() {
-	int t[5];
-	int s = 0;
-	for(int i = 0; i < 5; ++i) {
-		scanf("%d", &t[i]);
-		s += t[i];
+
+int w[25]={2,3,5,7,11,13,17,19,23,29,31,37,43,41,47},k[25]={4,9,25,49};
+
+char s[25];
+
+int main()
+{
+	int ok=0;
+	for(int i=0;i<15;i++)
+	{
+		printf("%d\n",w[i]);
+		fflush(stdout);
+		scanf("%s",s);
+		ok+=s[0]=='y';
 	}
-	int best = s;
-	
-	// discard 2 cards
-	for(int a = 0; a < 5; ++a)
-		for(int b = a + 1; b < 5; ++b)
-			if(t[a] == t[b])
-				best = min(best, s - 2 * t[a]);
-	
-	// or discard 3 cards
-	for(int a = 0; a < 5; ++a)
-		for(int b = a + 1; b < 5; ++b)
-			for(int c = b + 1; c < 5; ++c)
-				if(t[a] == t[b] && t[a] == t[c])
-					best = min(best, s - 3 * t[a]);
-	
-	printf("%d\n", best);
-	return 0;
+	if(ok>=2)
+	{
+		printf("composite\n");fflush(stdout);return 0;
+	}
+	ok=0;
+	for(int i=0;i<4;i++)
+	{
+		printf("%d\n",k[i]);
+		fflush(stdout);
+		scanf("%s",s);
+		ok+=s[0]=='y';
+	}
+	if(ok)
+	{
+		printf("composite\n");fflush(stdout);return 0;
+	}
+	printf("prime\n");fflush(stdout);return 0;
 }
