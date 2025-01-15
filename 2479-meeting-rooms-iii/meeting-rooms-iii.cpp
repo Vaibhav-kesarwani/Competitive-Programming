@@ -1,75 +1,45 @@
-bool compare(vector<int>& v1, vector<int>& v2) { return v1[0] < v2[0]; }
 class Solution {
 public:
+#define END first
+#define ROOM_IDX second
+
+typedef long long time_t;
+
     int mostBooked(int n, vector<vector<int>>& meetings) {
-        /* Sort the meetings based on start_time */
-        sort(meetings.begin(), meetings.end(), compare);
+        std::sort(meetings.begin(), meetings.end(),
+            [&](const vector<int> &m1, const vector<int> &m2) {
+                return m1[0] < m2[0];
+            });
+        
+        std::vector<int> room_cnt(n, 0);
+        std::priority_queue<pair<time_t, int>, std::vector<pair<time_t, int> > > pq;
+        std::priority_queue<int, std::vector<int> > free_rooms;
+        for (int i = 0; i < n; i++) free_rooms.push(-i);
 
-        /* Create a priority queue for engaged rooms. Each node of PQ will store
-         * {current_meeting_ending_time, room_number} */
-        priority_queue<pair<long long, int>, vector<pair<long long, int>>,
-                       greater<pair<long long, int>>>
-            engaged;
+        for (auto &m : meetings) {
+            time_t start = m[0], duration = m[1] - m[0];
 
-        /* Create a priority queue for non-engaged rooms. Each node of PQ will
-         * store {room_number} */
-        priority_queue<int, vector<int>, greater<int>> unused;
-
-        /* Frequency map to store the frequency of meetings in each room */
-        unordered_map<int, int> freq;
-
-        /* Currently all the rooms are mepty */
-        for (int i = 0; i < n; i++) {
-            unused.push(i);
-        }
-
-        for (auto x : meetings) {
-            int s = x[0], e = x[1];
-
-            /* Move the meeting rooms in engaged, with ending_time <= s, to
-             * unused */
-            while (engaged.size() > 0 && engaged.top().first <= s) {
-                int room = engaged.top().second;
-                engaged.pop();
-
-                unused.push(room);
+            while (!pq.empty() && -pq.top().END <= start) {
+                free_rooms.push(pq.top().ROOM_IDX);
+                pq.pop();
             }
 
-            /* If there are multiple empty rooms, choose the one with lower
-             * room_number */
-            if (unused.size() > 0) {
-                int room = unused.top();
-                unused.pop();
+            int free_room;
 
-                freq[abs(room)] += 1;
-
-                /* Mark the room as engaged */
-                engaged.push({e, room});
+            if (free_rooms.empty()) {
+                // free up one room
+                start = -pq.top().END;
+                free_room = -pq.top().ROOM_IDX;
+                pq.pop();
+            } else {
+                free_room = -free_rooms.top();
+                free_rooms.pop();
             }
-            /* If there are no empty rooms, wait for the engaged room with
-               nearest ending time to empty */
-            else {
-                pair<long long, int> topmost = engaged.top();
-                engaged.pop();
 
-                freq[abs(topmost.second)] += 1;
-
-                /* Since duration has to be the same, the newEnd will be
-                 * sum(end_time_of_the_prev_meeting, duration) */
-                long long newEnd = topmost.first;
-                newEnd += (e - s);
-
-                /* Mark the room as engaged */
-                engaged.push({newEnd, topmost.second});
-            }
+            pq.push({-(start + duration), -free_room});
+            ++room_cnt[free_room];
         }
 
-        /* Find the lowest room_number with maximum frequency */
-        int maxi = 0;
-        for (int i = 1; i < n; i++) {
-            if (freq[i] > freq[maxi])
-                maxi = i;
-        }
-        return maxi;
+        return std::max_element(room_cnt.begin(), room_cnt.end()) - room_cnt.begin();
     }
 };
