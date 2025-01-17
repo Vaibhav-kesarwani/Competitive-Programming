@@ -1,15 +1,30 @@
-#include <iostream>
+#include<bits/stdc++.h>
 using namespace std;
-
-int main() {
-	int t; cin >> t;
-	while(t--){
-		int x, y, k; cin >> x >> y >> k;
-		for(int i = 0; i < k - k % 2; i++){
-			cout << x - (i & 1 ? 1 : -1) * (i / 2 + 1) << " " << y << "\n";
-		} 
-		if(k & 1){
-			cout << x << " " << y << "\n";
-		}
+inline int read()
+{
+	int n=0,f=1,ch=getchar();
+	while(ch<'0'||ch>'9')
+	{
+		if(ch=='-')f=-1;
+		ch=getchar();
+	}
+	while(ch>='0'&&ch<='9')
+	{
+		n=n*10+ch-'0';
+		ch=getchar();
+	}
+	return n*f;
+}
+int p[200005];
+int main()
+{
+	int t,n;
+	t=read();
+	for(int greg=1;greg<=t;greg++)
+	{
+		n=read();
+		for(int i=1;i<=n;i++)p[i]=read();
+		for(int i=1;i<=n;i++)printf("%d ",p[i]%n+1);
+		printf("\n");
 	}
 }
