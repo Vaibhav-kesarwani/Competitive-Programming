@@ -49,6 +49,7 @@ void solve() {
     std::cout << ans << "\n";
 }
 
+
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);

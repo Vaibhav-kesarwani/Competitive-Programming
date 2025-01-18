@@ -5,6 +5,7 @@ using u64 = unsigned long long;
 using u32 = unsigned;
 using u128 = unsigned __int128;
 
+
 int S(int n, int m) {
     if (m == 0) {
         return (n == 0);
