@@ -100,7 +100,7 @@ using namespace std;
 
 // Constants
 const long double pi = 3.141592653589793238;
-const int INF = INT_MAX;
+// const int INF = INT_MAX;
 const int mod = 1000000007;
 
 // Loop Macros
@@ -194,43 +194,84 @@ string s, t;
 ll cnt = 0, ans = 0, sum = 0;
 
 // <============================================SOLVE FUNCTION===========================================================>
+class segment_tree {
+public:
+    vector<ll> seg;
 
-class segmentTree {
- public:
-    vll seg;
-
-    segmentTree(int n) {
-        seg.resize(2 * n + 1);
+    segment_tree(int n) {
+        seg.resize(4 * n + 1); 
     }
 
-    void build (int node, int low, int high, vll& a) {
+    void build(int node, int low, int high, vector<ll>& v) {
         if (low == high) {
-            seg[node] = a[low];
+            seg[node] = v[low];
             return;
         }
 
         int mid = (low + high) / 2;
 
-        build(2 * node + 1, low, mid, a);
-        build(2 * node + 2, mid + 1, high, a);
+        build(2 * node + 1, low, mid, v);
+        build(2 * node + 2, mid + 1, high, v);
 
-        seg[node] = seg[2 * node + 1] + seg[2 * node + 2];
+        seg[node] = min(seg[2 * node + 1], seg[2 * node + 2]);
     }
 
-    int query
+    ll query(int node, int low, int high, int qs, int qe) {
+        if (qs > high || qe < low) {
+            return LLONG_MAX;
+        }
+
+        if (qs <= low && high <= qe) {
+            return seg[node];
+        }
+
+        int mid = (low + high) >> 1;
+
+        ll left = query(2 * node + 1, low, mid, qs, qe);
+        ll right = query(2 * node + 2, mid + 1, high, qs, qe);
+
+        return min(left, right);
+    }
+
+    void update(int node, int low, int high, int pos, int val) {
+        if (low == high) {
+            seg[node] = val;
+            return;
+        }
+
+        int mid = (low + high) >> 1;
+        if (pos <= mid) {
+            update(2 * node + 1, low, mid, pos, val);
+        } else {
+            update(2 * node + 2, mid + 1, high, pos, val);
+        }
+
+        seg[node] = min(seg[2 * node + 1], seg[2 * node + 2]);
+    }
 };
 
 
 void Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai() {
     cin >> n >> q;
-    
+    vll arr(n); cin >> arr;
+
+    segment_tree se(n);
+
+    se.build(1, 0, n - 1, arr);
+
+    for0(i, q) {
+        cin >> a >> b;
+        a--; b--;
+
+        cout << se.query(1, 0, n - 1, a , b) nt;
+    }
 }
 
 // <============================================MAIN FUNCTION===========================================================>
 
 int32_t main() {
     Code By Vaibhav
-    int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
+    // int Bhai_Test_Case_Hai_Ya; cin >> Bhai_Test_Case_Hai_Ya; while (Bhai_Test_Case_Hai_Ya-- > 0)
         Solve_Karo_Jaldi_Sa_Dusra_Bhi_Karna_Hai();
     return 0;
 }
