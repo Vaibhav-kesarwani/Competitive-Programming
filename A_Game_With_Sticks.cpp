@@ -61,6 +61,8 @@ ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) 
  
 void solve() {
     int n, m; cin >> n >> m;
+    if (n > m) swap(n, m);
+    
     cout << (n % 2 == 0 ? "Malvika" : "Akshat") << endl;
 }
  
