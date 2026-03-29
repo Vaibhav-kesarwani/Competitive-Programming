@@ -60,7 +60,7 @@ template<typename T>
 ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) out << x << " "; return out; }
  
 void solve() {
-    int a, b, c, d; cin >> a >> b >> c >> d;
+    ll a, b, c, d; cin >> a >> b >> c >> d;
 
     cout << "Difference = " << (a * b) - (c * d) << endl; 
 }
