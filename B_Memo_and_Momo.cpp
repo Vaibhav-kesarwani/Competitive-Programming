@@ -1,7 +1,7 @@
 /*
  * Author        :         vaibhav_404
- * Date          :         30-03-2026
- * Time          :         23:13
+ * Date          :         31-03-2026
+ * Time          :         23:27
 */
  
 #include <bits/stdc++.h>
@@ -60,13 +60,19 @@ template<typename T>
 ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) out << x << " "; return out; }
  
 void solve() {
-    ll a, b, c, d; cin >> a >> b >> c >> d;
+    ll a, b, k; cin >> a >> b >> k;
 
-    long double left = b * log(a);
-    long double right = d * log(c);
-
-    cout << (left > right ? "YES" : "NO") << endl;
-}
+    if (a % k == 0 and b % k == 0) {
+        cout << "Both" << endl;
+    }
+    else if (a % k == 0 and b % k != 0) {
+        cout << "Memo" << endl;
+    }
+    else if (b % k == 0 and a % k != 0) {
+        cout << "Momo" << endl;
+    }
+    else cout << "No One" << endl;
+}   
  
 signed main() {
     Code By Vaibhav

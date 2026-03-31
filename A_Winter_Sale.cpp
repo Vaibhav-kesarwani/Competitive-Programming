@@ -1,7 +1,7 @@
 /*
  * Author        :         vaibhav_404
- * Date          :         30-03-2026
- * Time          :         23:13
+ * Date          :         31-03-2026
+ * Time          :         23:17
 */
  
 #include <bits/stdc++.h>
@@ -60,12 +60,10 @@ template<typename T>
 ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) out << x << " "; return out; }
  
 void solve() {
-    ll a, b, c, d; cin >> a >> b >> c >> d;
+    double x, p; cin >> x >> p;
+    double original = (p * 100) / (100 - x);
 
-    long double left = b * log(a);
-    long double right = d * log(c);
-
-    cout << (left > right ? "YES" : "NO") << endl;
+    cout << fixed << setprecision(2) << original << endl;
 }
  
 signed main() {
