@@ -1,7 +1,7 @@
 /*
  * Author        :         vaibhav_404
  * Date          :         05-04-2026
- * Time          :         22:27
+ * Time          :         22:30
 */
  
 #include <bits/stdc++.h>
@@ -67,18 +67,28 @@ istream& operator>>(istream &in, vector<T> &v) { for (auto &x : v) in >> x; retu
 template<typename T>
 ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) out << x << " "; return out; }
  
-void solve() {
-    int n, q; cin >> n >> q;
-    vll a(n + 1), prefix(n + 1, 0);
+bool found(vll &a, ll x) {
+    int left = 0, right = a.size() - 1;
 
-    for (int i = 1; i <= n; i++) {
-        cin >> a[i];
-        prefix[i] = prefix[i - 1] - a[i];
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (a[mid] == x) return 1;
+        else if (a[mid] > x) right = mid - 1;
+        else left = mid + 1;
     }
 
+    return 0;
+}
+
+void solve() {
+    ll n, q; cin >> n >> q;
+    vll a(n); cin >> a;
+    sort(all(a));
+    
     while (q--) {
-        int l, r; cin >> l >> r;
-        cout << prefix[l - 1] - prefix[r] << endl;
+        ll x; cin >> x;
+        cout << (found(a, x) ? "found" : "not found") << endl;
     }
 }
  
