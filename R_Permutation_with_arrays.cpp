@@ -1,7 +1,7 @@
 /*
  * Author        :         vaibhav_404
  * Date          :         05-04-2026
- * Time          :         21:10
+ * Time          :         21:34
 */
  
 #include <bits/stdc++.h>
@@ -69,21 +69,14 @@ ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) 
  
 void solve() {
     int n; cin >> n;
+    vi a(n), b(n); cin >> a >> b;
+    int ans = 0;
 
-    if (n <= 2) {
-        cout << n - 1 << endl;
-        return;
+    for (int i = 0; i < n; i++) {
+        ans = ans ^ (a[i] ^ b[i]);
     }
 
-    ll a = 0, b = 1;
-
-    for (int i = 3; i <= n; i++) {
-        ll c = a + b;
-        a = b;
-        b = c;
-    }
-
-    cout << b << endl;
+    cout << (ans ? "no" : "yes") << endl;
 }
  
 signed main() {
