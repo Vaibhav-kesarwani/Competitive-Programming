@@ -1,7 +1,7 @@
 /*
  * Author        :         vaibhav_404
  * Date          :         05-04-2026
- * Time          :         20:06
+ * Time          :         20:19
 */
  
 #include <bits/stdc++.h>
@@ -68,17 +68,19 @@ template<typename T>
 ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) out << x << " "; return out; }
  
 void solve() {
-    int n; cin >> n;
-    vi a(n); cin >> a;
+    int a, b; cin >> a >> b;
+    string s; cin >> s;
 
-    int mini = *min_element(all(a));
-    int cnt = 0;
+    for (int i = 0; i < s.size(); i++) {
+        if (i == a) continue;
 
-    for (int i = 0; i < n; i++) {
-        if (mini == a[i]) cnt++;
+        if (!isdigit(s[i])) {
+            cout << "No\n";
+            return;
+        }
     }
 
-    cout << (cnt % 2 != 0 ? "Lucky" : "Unlucky") << endl;
+    cout << (s[a] == '-' ? "Yes" : "No") << endl;
 }
  
 signed main() {

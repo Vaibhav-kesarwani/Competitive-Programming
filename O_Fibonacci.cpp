@@ -1,7 +1,7 @@
 /*
  * Author        :         vaibhav_404
  * Date          :         05-04-2026
- * Time          :         20:06
+ * Time          :         21:10
 */
  
 #include <bits/stdc++.h>
@@ -69,16 +69,21 @@ ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) 
  
 void solve() {
     int n; cin >> n;
-    vi a(n); cin >> a;
 
-    int mini = *min_element(all(a));
-    int cnt = 0;
-
-    for (int i = 0; i < n; i++) {
-        if (mini == a[i]) cnt++;
+    if (n <= 2) {
+        cout << n - 1 << endl;
+        return;
     }
 
-    cout << (cnt % 2 != 0 ? "Lucky" : "Unlucky") << endl;
+    int a = 0, b = 1;
+
+    for (int i = 3; i <= n; i++) {
+        int c = a + b;
+        a = b;
+        b = c;
+    }
+
+    cout << b << endl;
 }
  
 signed main() {

@@ -1,7 +1,7 @@
 /*
  * Author        :         vaibhav_404
  * Date          :         05-04-2026
- * Time          :         20:06
+ * Time          :         20:11
 */
  
 #include <bits/stdc++.h>
@@ -71,19 +71,21 @@ void solve() {
     int n; cin >> n;
     vi a(n); cin >> a;
 
-    int mini = *min_element(all(a));
-    int cnt = 0;
-
     for (int i = 0; i < n; i++) {
-        if (mini == a[i]) cnt++;
+        int maxi = a[i];
+
+        for (int j = i; j < n; j++) {
+            maxi = max(maxi, a[j]);
+            cout << maxi << " ";
+        }
     }
 
-    cout << (cnt % 2 != 0 ? "Lucky" : "Unlucky") << endl;
+    cout << endl;
 }
  
 signed main() {
     Code By Vaibhav
-    // int t; cin >> t; while (t-- > 0)
+    int t; cin >> t; while (t-- > 0)
         solve();
     return 0;
 }
