@@ -1,7 +1,7 @@
 /*
  * Author        :         justDevil
- * Date          :         12-04-2026
- * Time          :         14:04
+ * Date          :         13-04-2026
+ * Time          :         11:17
 */
  
 #include <bits/stdc++.h>
@@ -68,15 +68,18 @@ template<typename T>
 ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) out << x << " "; return out; }
  
 void solve() {
-    string s; cin >> s;
-    int cnt = 0;
+    int n; cin >> n;
 
-    for (int i = 0; i < sz(s); i++) {
-        if (s[i] == '7') cnt++;
-        if (s[i] == '4') cnt++;
+    for (int i = 0; i < n; i++) {
+        int a; cin >> a;
+
+        if (a == 1) {
+            cout << "HARD" << endl;
+            return;
+        }
     }
 
-    cout << (cnt == 4 or cnt == 7 ? "YES" : "NO") << endl;
+    cout << "EASY" << endl;
 }
  
 signed main() {
