@@ -1,7 +1,7 @@
 /*
  * Author        :         justDevil
- * Date          :         13-04-2026
- * Time          :         20:35
+ * Date          :         14-04-2026
+ * Time          :         17:13
 */
  
 #include <bits/stdc++.h>
@@ -67,46 +67,62 @@ istream& operator>>(istream &in, vector<T> &v) { for (auto &x : v) in >> x; retu
 template<typename T>
 ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) out << x << " "; return out; }
  
-void solve() {
+struct FenwickTree {
+    int n;
+    vector<ll> bit;
 
-//     int n; cin >> n;
-//     vi a(n); cin >> a;
+    FenwickTree(int n) {
+        this->n = n;
+        bit.assign(n + 1, 0);
+    }
 
-//     usll st;
-//     bool chk = 0;
-//     for (int i = 0; i < n; i++) {
-//         if (st.count(a[i])) chk = 1;
-//         st.insert(a[i]);
-//     }
-
-//     sort(rall(a));
-
-//     if (chk) {
-//         cout << -1 << endl;
-//         return;
-//     }
-
-//    cout << a << endl;
-
-//* Optimal Approach -> Donot need to use the set.
-
-    int n; cin >> n;
-    vi a(n); cin >> a;
-    sort(rall(a));
-
-    for (int i = 1; i < n; i++) {
-        if (a[i] == a[i - 1]) {
-            cout << -1 << endl;
-            return;
+    void update(int i, ll val) {
+        for (; i <= n; i += i & -i) {
+            bit[i] += val;
         }
-    } 
+    }
 
-    cout << a << endl;
+    ll query(int i) {
+        ll sum = 0;
+        for (; i > 0; i -= i & -i) {
+            sum += bit[i];
+        }
+        return sum;
+    }
+
+    void range_update(int l, int r, ll val) {
+        update(l, val);
+        if (r + 1 <= n) {
+            update(r + 1, -val);
+        }
+    }
+};
+
+void solve() {
+    ll n, q; cin >> n >> q;
+    vll a(n + 1); 
+    for (int i = 1; i <= n; i++) cin >> a[i];
+
+    FenwickTree fen(n);
+
+    while (q--) {
+        int type; cin >> type;
+        if (type == 1) {
+            ll l, r, x; cin >> l >> r >> x;
+
+            fen.range_update(l, r, x);
+        }
+        else if (type == 2) {
+            int chk; cin >> chk;
+
+            cout << a[chk] + fen.query(chk) << endl;
+        }
+    }
 }
  
 signed main() {
     Code By Vaibhav
-    int t; cin >> t; while (t-- > 0)
+    // int t; cin >> t; while (t-- > 0)
         solve();
     return 0;
 }

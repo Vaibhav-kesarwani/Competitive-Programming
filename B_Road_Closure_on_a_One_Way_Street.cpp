@@ -1,7 +1,7 @@
 /*
  * Author        :         justDevil
- * Date          :         13-04-2026
- * Time          :         20:35
+ * Date          :         14-04-2026
+ * Time          :         16:58
 */
  
 #include <bits/stdc++.h>
@@ -68,45 +68,30 @@ template<typename T>
 ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) out << x << " "; return out; }
  
 void solve() {
+    ll n, m; cin >> n >> m;
 
-//     int n; cin >> n;
-//     vi a(n); cin >> a;
+    if (n == 1) {
+        cout << 1 << endl;
+        return;
+    }
 
-//     usll st;
-//     bool chk = 0;
-//     for (int i = 0; i < n; i++) {
-//         if (st.count(a[i])) chk = 1;
-//         st.insert(a[i]);
-//     }
+    ll ans = 1, cnt = 0;
 
-//     sort(rall(a));
+    for (int i = 0; i < n - 1; i++) {
+        ll a; cin >> a;
 
-//     if (chk) {
-//         cout << -1 << endl;
-//         return;
-//     }
+        if (a == 1) cnt++;
+        if (cnt > m) break;
 
-//    cout << a << endl;
+        ans = i + 2;
+    }
 
-//* Optimal Approach -> Donot need to use the set.
-
-    int n; cin >> n;
-    vi a(n); cin >> a;
-    sort(rall(a));
-
-    for (int i = 1; i < n; i++) {
-        if (a[i] == a[i - 1]) {
-            cout << -1 << endl;
-            return;
-        }
-    } 
-
-    cout << a << endl;
+    cout << ans << endl;
 }
  
 signed main() {
     Code By Vaibhav
-    int t; cin >> t; while (t-- > 0)
+    // int t; cin >> t; while (t-- > 0)
         solve();
     return 0;
 }
