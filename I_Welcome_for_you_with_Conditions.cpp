@@ -1,7 +1,7 @@
 /*
  * Author        :         ModuloGod
- * Date          :         21-06-2026
- * Time          :         13:58
+ * Date          :         16-07-2026
+ * Time          :         19:49
 */
  
 #include <bits/stdc++.h>
@@ -69,13 +69,12 @@ ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) 
  
 void solve() {
     int a, b; cin >> a >> b;
-
-    cout << (a >= b ? "Yes" : "No") << endl; 
+    cout << (a >= b ? "Yes" : "No") << endl;
 }
  
 signed main() {
     Code By Vaibhav
-    // int t; cin >> t; while (t-- > 0)
+    int t; cin >> t; while (t-- > 0)
         solve();
     return 0;
 }
