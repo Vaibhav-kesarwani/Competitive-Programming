@@ -1,7 +1,7 @@
 /*
  * Author        :         ModuloGod
  * Date          :         09-08-2026
- * Time          :         13:09
+ * Time          :         13:58
 */
  
 #include <bits/stdc++.h>
@@ -69,44 +69,15 @@ ostream& operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) 
  
 void solve() {
     int n; cin >> n;
-    vi a(n);
-    mii mp;
+    vi a(n); cin >> a;
 
+    int cnt = 0, maxi = 0;
     for (int i = 0; i < n; i++) {
-        cin >> a[i];
-        mp[a[i]]++;
+        if (a[i] >= maxi) cnt++;
+        maxi = max(maxi, a[i]);
     }
 
-    int num_freq = 0;
-    for (auto it : mp) {    
-        num_freq = max(num_freq, it.second);
-    }   
-
-    int other_freq = 0;
-    for (auto it : mp) {
-        if (num_freq != it.second) other_freq += it.second;
-    }
-
-    int num = 0, cnt = 0;
-
-    if (other_freq >= num_freq) {
-        int sum = accumulate(all(a), 0);
-        cout << sum << endl;
-        return;
-    }
-    else {
-        int sum = a[0];
-
-        for (int i = 1; i < n; i++) {
-            sum += a[i];
-            if (a[i] != a[i - 1]) {
-                break;
-            }
-        }
-
-        cout << sum << endl;
-        return;
-    }
+    cout << cnt << endl;
 }
  
 signed main() {
