@@ -1,1 +1,2 @@
-*.bin.auto-pull/
+.auto-pull/
+*.bin
